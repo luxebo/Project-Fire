@@ -961,6 +961,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bfc8150f34ac7408e58737a097be23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1893317115}
+  upLimit: 250
+  downLimit: 0
+  rightLimit: 250
+  leftLimit: 0
 --- !u!1 &2099639089
 GameObject:
   m_ObjectHideFlags: 0

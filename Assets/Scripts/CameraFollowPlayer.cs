@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
-    GameObject player;
+    public Transform player;
+    public float upLimit;
+    public float downLimit;
+    public float rightLimit;
+    public float leftLimit;
+    Vector3 cxy;
     bool followPlayer = true;
     // Use this for initialization
     //z and x
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        cxy = transform.position - player.position;
     }
 
     // Update is called once per frame
@@ -26,6 +31,7 @@ public class CameraFollowPlayer : MonoBehaviour
         }
         else
         {
+            camUnlocked();
             if (Input.GetKeyDown("l"))
             {
                 followPlayer = true;
@@ -33,14 +39,36 @@ public class CameraFollowPlayer : MonoBehaviour
         }
     }
 
-    public void setFollowPlayer(bool val)
-    {
-        followPlayer = val;
-    }
-
     void camFollowPlayer()
     {
-        Vector3 newPos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-        player.transform.position = newPos;
+        Vector3 newPos = player.position + cxy;
+        transform.position = Vector3.Slerp(transform.position, newPos, 1.0f);
+        transform.LookAt(player);
+    }
+
+    void camUnlocked()
+    {
+        float panSpeed = 100.0f;
+        float border = 30.0f;
+        Vector3 pos = transform.position;
+        if (Input.mousePosition.x >= Screen.width - border)
+        {
+            pos.x += panSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.x <= border)
+        {
+            pos.x -= panSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.y >= Screen.height - border)
+        {
+            pos.z += panSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.y <= border)
+        {
+            pos.z -= panSpeed * Time.deltaTime;
+        }
+        pos.x = Mathf.Clamp(pos.x, downLimit, upLimit);
+        pos.z = Mathf.Clamp(pos.z, leftLimit, rightLimit);
+        transform.position = pos;
     }
 }
