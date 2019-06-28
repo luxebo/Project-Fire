@@ -156,6 +156,11 @@ Prefab:
       propertyPath: m_Name
       value: CombatActor_test
       objectReference: {fileID: 0}
+    - target: {fileID: 114212962436359346, guid: e254900d9bb8c284f863c192c16a5d93,
+        type: 2}
+      propertyPath: regen
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e254900d9bb8c284f863c192c16a5d93, type: 2}
   m_IsPrefabAsset: 0
@@ -197,6 +202,11 @@ Prefab:
     - target: {fileID: 4256086432657092, guid: e254900d9bb8c284f863c192c16a5d93, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114212962436359346, guid: e254900d9bb8c284f863c192c16a5d93,
+        type: 2}
+      propertyPath: regen
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e254900d9bb8c284f863c192c16a5d93, type: 2}
@@ -403,6 +413,8 @@ GameObject:
   - component: {fileID: 786465175}
   - component: {fileID: 786465174}
   - component: {fileID: 786465173}
+  - component: {fileID: 786465178}
+  - component: {fileID: 786465177}
   m_Layer: 0
   m_Name: Landmark
   m_TagString: Untagged
@@ -478,6 +490,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786465177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 786465172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf57210fa1375f40ac70c53020cdf1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  regen: 0
+--- !u!114 &786465178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 786465172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee0b32bceab6e04eaa923e6294a5ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
+  canHurtSelf: 1
 --- !u!1 &809235498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  regen: 10
 --- !u!1 &1988311499
 GameObject:
   m_ObjectHideFlags: 0

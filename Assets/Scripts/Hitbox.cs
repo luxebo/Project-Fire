@@ -22,5 +22,24 @@ public class Hitbox : MonoBehaviour {
             // for debugging
             print(enemy.health);
         }
+        else
+        {
+            CombatActor dmg = other.gameObject.GetComponentInParent<CombatActor>();
+            if (dmg != null)
+            {
+                dmg.health -= damage;
+                print(dmg.health);
+            }
+        }
+        if (canHurtSelf)
+        {
+            CombatActor selfDmg = GetComponentInParent<CombatActor>();
+            if (selfDmg != null)
+            {
+                selfDmg.health -= damage;
+                // for debugging
+                print(selfDmg.health);
+            }
+        }
     }
 }
