@@ -11,14 +11,15 @@ public class CombatActor : MonoBehaviour {
     private int max;
     private float timer = 0.0f;
     private float prevTime = 1.0f;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    protected virtual void Start() {
         max = health;
         alive = true;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update ()
+    {
         timer += Time.deltaTime;
         if (health < max)
         {
@@ -29,13 +30,13 @@ public class CombatActor : MonoBehaviour {
                 print(health);
             }
         }
-		if (alive == false)
+        if (alive == false)
         {
             die();
         }
 	}
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (health <= 0)
         {
@@ -44,7 +45,7 @@ public class CombatActor : MonoBehaviour {
     }
 
     // Derived classes can override; for example, might not want to destroy the player object
-    void die()
+    protected virtual void die()
     {
         print("CombatActor died\n");
         if (CompareTag("Player"))
