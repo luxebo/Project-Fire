@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Hitbox : MonoBehaviour {
+    public GameObject user;
     public float damage;
     public float lifetimeSeconds; // How many seconds will this hitbox last? (Set negative if never disappears)
     public bool canHurtSelf;
     private int lifetimeUpdates; // How many updates will this last? (rounded up)
 
-    private void Start()
+    protected virtual void Start()
     {
         if(lifetimeSeconds < 0)
         {
@@ -24,9 +25,9 @@ public class Hitbox : MonoBehaviour {
 
     // Damage enemies that enter this hitbox. May want to change to OnTriggerStay if
     // we want hitboxes with continuous damage.
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if (!canHurtSelf && other.gameObject == this.gameObject)
+        if (!canHurtSelf && other.gameObject == user)
         {
             return;
         }
@@ -39,7 +40,9 @@ public class Hitbox : MonoBehaviour {
         }
     }
 
-    void FixedUpdate()
+    // Default behavior is to deactivate hitbox object when lifetime is 0.
+
+    protected virtual void FixedUpdate()
     {
         if (lifetimeUpdates > 0)
         {

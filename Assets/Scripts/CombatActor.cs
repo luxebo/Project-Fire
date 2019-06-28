@@ -7,19 +7,19 @@ public class CombatActor : MonoBehaviour {
     public int health;
     private bool alive;
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
         alive = true;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 		if (alive == false)
         {
             die();
         }
 	}
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (health <= 0)
         {
@@ -28,7 +28,7 @@ public class CombatActor : MonoBehaviour {
     }
 
     // Derived classes can override; for example, might not want to destroy the player object
-    void die()
+    protected virtual void die()
     {
         print("CombatActor died\n");
         Destroy(this.gameObject);

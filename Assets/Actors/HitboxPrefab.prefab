@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65646897941163144}
   - component: {fileID: 114166021346007386}
   m_Layer: 0
-  m_Name: Hitbox
+  m_Name: HitboxPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee0b32bceab6e04eaa923e6294a5ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  user: {fileID: 0}
   damage: 1
   lifetimeSeconds: 0
   canHurtSelf: 0
