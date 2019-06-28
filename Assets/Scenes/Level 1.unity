@@ -988,6 +988,10 @@ Prefab:
       propertyPath: canHurtSelf
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1715462255078510, guid: b8c6f764b8a692042a8caa9694b4ad17, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8c6f764b8a692042a8caa9694b4ad17, type: 2}
   m_IsPrefabAsset: 0
@@ -1141,6 +1145,8 @@ GameObject:
   - component: {fileID: 1893317112}
   - component: {fileID: 1893317117}
   - component: {fileID: 1893317118}
+  - component: {fileID: 1893317119}
+  - component: {fileID: 1893317120}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1255,6 +1261,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1893317119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1893317111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9887f6e0954344c4c94bbd2b41ae5ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
+    type: 2}
+  cooldownSeconds: 0.5
+--- !u!114 &1893317120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1893317111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c1651552762fe41b028a57208eb81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1988311499
 GameObject:
   m_ObjectHideFlags: 0

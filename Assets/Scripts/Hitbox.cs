@@ -9,10 +9,36 @@ public class Hitbox : MonoBehaviour {
     public float lifetimeSeconds; // How many seconds will this hitbox last? (Set negative if never disappears)
     public bool canHurtSelf;
     private int lifetimeUpdates; // How many updates will this last? (rounded up)
+    private int currentLifetime = 0;
 
     protected virtual void Start()
     {
-        if(lifetimeSeconds < 0)
+        convertLifetime();
+        reset();
+    }
+
+    // Reinitialize variables, should be used if repurposing a hitbox.
+    public virtual void reinitialize(GameObject u, float dam, float lifetime, bool hurtSelf)
+    {
+        user = u;
+        damage = dam;
+        lifetimeSeconds = lifetime;
+        canHurtSelf = hurtSelf;
+
+        convertLifetime();
+        reset();
+    }
+
+    // Reset current lifetime. Use when reactivating hitbox.
+    public virtual void reset()
+    {
+        currentLifetime = lifetimeUpdates;
+    }
+
+    // Converts lifetime in seconds to updates
+    protected virtual void convertLifetime()
+    {
+        if (lifetimeSeconds < 0)
         {
             lifetimeUpdates = -1;
         }
@@ -20,7 +46,6 @@ public class Hitbox : MonoBehaviour {
         {
             lifetimeUpdates = Mathf.CeilToInt(lifetimeSeconds / Time.fixedDeltaTime);
         }
-        
     }
 
     // Damage enemies that enter this hitbox. May want to change to OnTriggerStay if
@@ -44,14 +69,14 @@ public class Hitbox : MonoBehaviour {
 
     protected virtual void FixedUpdate()
     {
-        if (lifetimeUpdates > 0)
+        if (currentLifetime > 0)
         {
-            lifetimeUpdates--;
+            currentLifetime--;
         }
         
-        if (lifetimeUpdates == 0)
+        if (currentLifetime == 0)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }
