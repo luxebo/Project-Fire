@@ -161,6 +161,11 @@ Prefab:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114212962436359346, guid: e254900d9bb8c284f863c192c16a5d93,
+        type: 2}
+      propertyPath: regen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e254900d9bb8c284f863c192c16a5d93, type: 2}
   m_IsPrefabAsset: 0
@@ -1116,7 +1121,7 @@ Prefab:
     - target: {fileID: 114166021346007386, guid: b8c6f764b8a692042a8caa9694b4ad17,
         type: 2}
       propertyPath: damage
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114166021346007386, guid: b8c6f764b8a692042a8caa9694b4ad17,
         type: 2}
@@ -1249,6 +1254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  regen: 10
 --- !u!65 &1893317118
 BoxCollider:
   m_ObjectHideFlags: 0
