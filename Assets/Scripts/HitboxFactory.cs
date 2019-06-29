@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// A HitboxFactory allows for the creation of new Hitbox prefab objects on the fly.
+// This should probably always be accessed via a HitboxFactory prefab.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

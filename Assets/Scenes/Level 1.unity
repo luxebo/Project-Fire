@@ -164,7 +164,7 @@ Prefab:
     - target: {fileID: 114212962436359346, guid: e254900d9bb8c284f863c192c16a5d93,
         type: 2}
       propertyPath: regen
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e254900d9bb8c284f863c192c16a5d93, type: 2}
@@ -439,7 +439,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 786465172}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -524,8 +524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee0b32bceab6e04eaa923e6294a5ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  user: {fileID: 786465172}
   damage: 30
-  canHurtSelf: 1
+  lifetimeSeconds: -1
+  canHurtSelf: 0
 --- !u!1 &809235498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1025,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1715462255078510, guid: b8c6f764b8a692042a8caa9694b4ad17, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8c6f764b8a692042a8caa9694b4ad17, type: 2}
@@ -1179,6 +1181,8 @@ GameObject:
   - component: {fileID: 1893317117}
   - component: {fileID: 1893317118}
   - component: {fileID: 1893317119}
+  - component: {fileID: 1893317121}
+  - component: {fileID: 1893317122}
   - component: {fileID: 1893317120}
   m_Layer: 0
   m_Name: Player
@@ -1306,9 +1310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9887f6e0954344c4c94bbd2b41ae5ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownSeconds: 0.5
+  originObject: {fileID: 1893317111}
   hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
     type: 2}
-  cooldownSeconds: 0.5
 --- !u!114 &1893317120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,6 +1325,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c1651552762fe41b028a57208eb81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1893317121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1893317111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a22b6490db1344fa9c56eaa6220f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSeconds: 1
+  originObject: {fileID: 1893317111}
+  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
+    type: 2}
+  selfDamage: 15
+--- !u!114 &1893317122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1893317111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d3b1c1a962f114a9b8671a79ae97c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSeconds: 2.5
+  originObject: {fileID: 1893317111}
+  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
+    type: 2}
 --- !u!1 &1988311499
 GameObject:
   m_ObjectHideFlags: 0

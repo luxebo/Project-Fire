@@ -1,4 +1,6 @@
-﻿// Must be attached to a gameObject with a collider; damages CombatActors that collide.
+﻿// A Hitbox deals damage to CombatActors that enter.
+// They last roughly the specified number of seconds, and may or may not hurt the user.
+// Must be attached to a gameObject with a collider, which defines the bounding box of the hitbox.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +65,8 @@ public class Hitbox : MonoBehaviour {
             // for debugging
             print(enemy.health);
         }
+        /**
+         * Commenting out this code b/c it means hitboxes colliding also damages user
         else
         {
             CombatActor dmg = other.gameObject.GetComponentInParent<CombatActor>();
@@ -72,16 +76,8 @@ public class Hitbox : MonoBehaviour {
                 print(dmg.health);
             }
         }
-        if (canHurtSelf)
-        {
-            CombatActor selfDmg = GetComponentInParent<CombatActor>();
-            if (selfDmg != null)
-            {
-                selfDmg.health -= Mathf.FloorToInt(damage);
-                // for debugging
-                print(selfDmg.health);
-            }
-        }
+        **/
+        
     }
 
     // Default behavior is to deactivate hitbox object when lifetime is 0.
