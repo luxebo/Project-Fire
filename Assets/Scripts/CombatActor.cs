@@ -21,12 +21,12 @@ public class CombatActor : MonoBehaviour {
 	protected virtual void Update ()
     {
         timer += Time.deltaTime;
-        if (health < max)
+        if (regen != 0 && health < max)
         {
             if (timer > prevTime)
             {
                 prevTime += 1.0f;
-                health += regen;
+                health = health + regen <= max ? health + regen : max; // Do not overheal
                 print(health);
             }
         }
