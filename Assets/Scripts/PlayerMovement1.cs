@@ -21,7 +21,7 @@ public class PlayerMovement1 : MonoBehaviour
     void Update()
     {
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"),  Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput * moveSpeed;
+        moveVelocity = Vector2.ClampMagnitude(moveInput * moveSpeed, moveSpeed); // Ensure that velocity is no greater than moveSpeed
 
         if (Input.GetAxisRaw("Horizontal") >= 1 && Input.GetAxisRaw("Vertical") >= 1)
         {
