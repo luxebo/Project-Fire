@@ -12,6 +12,10 @@ public class BumpEnemy : MonoBehaviour {
     private bool bounced = false;
     // How many updates to stop moving after bumping so player does not die too fast
     // Just a hacky fix, better to work on natural acceleration instead.
+
+    // Michael: I think the solution is to let the enemy stay on the player, but only
+    // apply damage every couple seconds instead of constantly. This forces player
+    // to kite the melee enemy.
     private int stunned = 40;
     private int stun_timer = 0;
 	// Use this for initialization
@@ -41,8 +45,7 @@ public class BumpEnemy : MonoBehaviour {
         {
             stun_timer--;
         }
-        
-	}
+    }
 
     private void OnTriggerStay(Collider other)
     {

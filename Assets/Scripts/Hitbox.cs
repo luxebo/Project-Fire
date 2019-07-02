@@ -66,7 +66,8 @@ public class Hitbox : MonoBehaviour {
             print(enemy.health);
         }
         /**
-         * Commenting out this code b/c it means hitboxes colliding also damages user
+         * // Commenting out this code b/c it means hitboxes colliding also damages user
+
         else
         {
             CombatActor dmg = other.gameObject.GetComponentInParent<CombatActor>();
