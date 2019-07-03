@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114089749474263780}
   m_Layer: 0
   m_Name: BumpEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   damage: 10
   lifetimeSeconds: -1
   canHurtSelf: 0
+  reusable: 0
 --- !u!114 &114659616755207816
 MonoBehaviour:
   m_ObjectHideFlags: 1

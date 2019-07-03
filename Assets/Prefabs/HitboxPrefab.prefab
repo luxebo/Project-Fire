@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54799170848763670}
   m_Layer: 0
   m_Name: HitboxPrefab
-  m_TagString: Untagged
+  m_TagString: Hitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,3 +128,4 @@ MonoBehaviour:
   damage: 1
   lifetimeSeconds: 0
   canHurtSelf: 0
+  reusable: 0
