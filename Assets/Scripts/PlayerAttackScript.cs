@@ -9,20 +9,24 @@ public class PlayerAttackScript : MonoBehaviour {
     private KeyCode keybind1 = KeyCode.Z;
     private KeyCode keybind2 = KeyCode.X;
     private KeyCode keybind3 = KeyCode.C;
+    private KeyCode keybind4 = KeyCode.V;
 
     private bool keyPressed1 = false;
     private bool keyPressed2 = false;
     private bool keyPressed3 = false;
+    private bool keyPressed4 = false;
 
     private ExampleAttack attack1;
     private AttackWithRecoilDamage attack2;
     private AttackThatCanHitSelf attack3;
+    private Shoot attack4;
 
     void Start()
     {
         attack1 = GetComponent<ExampleAttack>();
         attack2 = GetComponent<AttackWithRecoilDamage>();
         attack3 = GetComponent<AttackThatCanHitSelf>();
+        attack4 = GetComponent<Shoot>();
     }
     // Update is called once per frame
     void Update () {
@@ -37,6 +41,10 @@ public class PlayerAttackScript : MonoBehaviour {
         if (Input.GetKeyDown(keybind3))
         {
             keyPressed3 = true;
+        }
+        if (Input.GetKeyDown(keybind4))
+        {
+            keyPressed4 = true;
         }
     }
 
@@ -57,5 +65,10 @@ public class PlayerAttackScript : MonoBehaviour {
             attack3.attack();
         }
         keyPressed3 = false;
+        if (keyPressed4 && attack4 != null)
+        {
+            attack4.attack();
+        }
+        keyPressed4 = false;
     }
 }

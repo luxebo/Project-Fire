@@ -11,7 +11,7 @@ public class AttackThatCanHitSelf : Attack {
     protected override void Start()
     {
         base.Start();
-        hitboxObj = hitboxFactory.createHitbox(originObject, 25f, 2.5f, true);
+        hitboxObj = hitboxFactory.createHitbox(originObject, 25f, 2.5f, true, true);
         hitbox = hitboxObj.GetComponent<Hitbox>();
         // We do not modify transform here, because we need to attach, reposition,
         // and detach hitbox every time we activate the attack.

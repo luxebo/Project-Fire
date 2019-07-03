@@ -14,7 +14,7 @@ public class AttackWithRecoilDamage : Attack {
         base.Start();
         for(int i = 0; i<hitboxObjs.Length; i++)
         {
-            hitboxObjs[i] = hitboxFactory.createHitbox(originObject, 10f, .33f, false);
+            hitboxObjs[i] = hitboxFactory.createHitbox(originObject, 10f, .33f, false, true);
             hitboxes[i] = hitboxObjs[i].GetComponent<Hitbox>();
         }
         // Front

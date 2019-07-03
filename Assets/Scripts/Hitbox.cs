@@ -10,6 +10,7 @@ public class Hitbox : MonoBehaviour {
     public float damage;
     public float lifetimeSeconds; // How many seconds will this hitbox last? (Set negative if never disappears)
     public bool canHurtSelf;
+    public bool reusable;
     private int lifetimeUpdates; // How many updates will this last? (rounded up)
     private int currentLifetime = 0;
 
@@ -20,12 +21,13 @@ public class Hitbox : MonoBehaviour {
     }
 
     // Reinitialize variables, should be used if repurposing a hitbox.
-    public virtual void reinitialize(GameObject u, float dam, float lifetime, bool hurtSelf)
+    public virtual void reinitialize(GameObject u, float dam, float lifetime, bool hurtSelf, bool reuse)
     {
         user = u;
         damage = dam;
         lifetimeSeconds = lifetime;
         canHurtSelf = hurtSelf;
+        reusable = reuse;
 
         convertLifetime();
         reset();
@@ -85,14 +87,29 @@ public class Hitbox : MonoBehaviour {
 
     protected virtual void FixedUpdate()
     {
-        if (currentLifetime > 0)
+        if (reusable == true)
         {
-            currentLifetime--;
+            if (currentLifetime > 0)
+            {
+                currentLifetime--;
+            }
+
+            if (currentLifetime == 0)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
-        
-        if (currentLifetime == 0)
+        else
         {
-            this.gameObject.SetActive(false);
+            if (currentLifetime > 0)
+            {
+                currentLifetime--;
+            }
+
+            if (currentLifetime == 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
