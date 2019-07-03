@@ -11,6 +11,7 @@ public class CameraFollowPlayer : MonoBehaviour
     public float leftLimit;
     Vector3 cxy;
     bool followPlayer = true;
+    float fov = 60.0f;
     // Use this for initialization
     //z and x
     void Start()
@@ -28,6 +29,7 @@ public class CameraFollowPlayer : MonoBehaviour
             {
                 followPlayer = false;
             }
+            camZoom();
         }
         else
         {
@@ -36,6 +38,7 @@ public class CameraFollowPlayer : MonoBehaviour
             {
                 followPlayer = true;
             }
+            camZoom();
         }
     }
 
@@ -70,5 +73,13 @@ public class CameraFollowPlayer : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, downLimit, upLimit);
         pos.z = Mathf.Clamp(pos.z, leftLimit, rightLimit);
         transform.position = pos;
+    }
+
+    void camZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        fov -= (scroll * 5);
+        fov = Mathf.Clamp(fov, 40.0f, 100.0f);
+        Camera.main.fieldOfView = fov;
     }
 }
