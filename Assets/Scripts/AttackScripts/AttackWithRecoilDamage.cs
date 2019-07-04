@@ -14,7 +14,7 @@ public class AttackWithRecoilDamage : Attack {
         base.Start();
         for(int i = 0; i<hitboxObjs.Length; i++)
         {
-            hitboxObjs[i] = hitboxFactory.createHitbox(originObject, 10f, .33f, false, true);
+            hitboxObjs[i] = Hitbox.createHitbox(originObject, 10f, .33f, false, true);
             hitboxes[i] = hitboxObjs[i].GetComponent<Hitbox>();
         }
         // Front
@@ -45,7 +45,6 @@ public class AttackWithRecoilDamage : Attack {
         for(int i = 0; i< hitboxObjs.Length; i++)
         {
             hitboxObjs[i].SetActive(true);
-            hitboxes[i].reset();
         }
         CombatActor selfDmg = GetComponentInParent<CombatActor>();
         if (selfDmg != null)

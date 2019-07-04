@@ -9,18 +9,12 @@ using UnityEngine;
 abstract public class Attack : MonoBehaviour {
     public float cooldownSeconds; // How long is attack disabled after use?
     public GameObject originObject; // Which object to use for relative position of hitboxes
-    public GameObject hitboxFactoryObj; // Allows Attacks to construct their own hitboxes
-    protected HitboxFactory hitboxFactory;
     protected int cooldownUpdates; // Cooldown in updates, rounded up
     protected int currentCooldown; // How many updates left until usable
 	
     // Use this for initialization
 	protected virtual void Start () {
-        hitboxFactory = hitboxFactoryObj.GetComponent<HitboxFactory>();
-        if(hitboxFactory == null)
-        {
-            throw new MissingComponentException("hitboxFactoryObj must have HitboxFactory component.");
-        }
+
 		if(cooldownSeconds < 0)
         {
             Debug.LogWarning("Cooldown should be non-negative. Negative cooldown is treated as 0.");

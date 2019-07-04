@@ -115,6 +115,7 @@ public class ObjectPooler : MonoBehaviour {
     public void returnPooledObject(GameObject obj)
     {
         obj.SetActive(false);
+        obj.transform.parent = objectPool.transform;
         allPools[obj.tag].Enqueue(obj);
     }
 
@@ -133,6 +134,7 @@ public class ObjectPooler : MonoBehaviour {
 
     internal GameObject expandPool(ObjectPoolItem item)
     {
+        print("Expanding pool by 1");
         string tag = item.objectToPool.tag;
         if (objectCount[tag] < item.maxPoolAmount || item.maxPoolAmount < 0)
         {
@@ -146,6 +148,7 @@ public class ObjectPooler : MonoBehaviour {
 
     internal List<GameObject> expandPool(ObjectPoolItem item, int numExpand, List<GameObject> fillList)
     {
+        print(string.Format("Expanding pool by {0}", numExpand));
         string tag = item.objectToPool.tag;
         // Find up to how many we can add
         int howMany = item.maxPoolAmount < 0? numExpand : 

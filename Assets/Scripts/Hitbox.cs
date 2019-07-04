@@ -1,6 +1,8 @@
 ﻿// A Hitbox deals damage to CombatActors that enter.
 // They last roughly the specified number of seconds, and may or may not hurt the user.
 // Must be attached to a gameObject with a collider, which defines the bounding box of the hitbox.
+
+//TODO: Expand friendly fire mechanics; i.e. enemy attacks shouldn't normally hit other enemies.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +11,8 @@ public class Hitbox : MonoBehaviour {
     public GameObject user;
     public float damage;
     public float lifetimeSeconds; // How many seconds will this hitbox last? (Set negative if never disappears)
-    public bool canHurtSelf;
-    public bool reusable;
+    public bool canHurtSelf; // Is the hitbox capabe of hurting the user?
+    public bool reusable; // If true, do not return the attached object to pool
     private int lifetimeUpdates; // How many updates will this last? (rounded up)
     private int currentLifetime = 0;
 
@@ -18,6 +20,18 @@ public class Hitbox : MonoBehaviour {
     {
         convertLifetime();
         reset();
+    }
+
+
+    public static GameObject createHitbox(GameObject user, float damage, float lifetime, bool canHitSelf, bool reusable)
+    {
+        // Get a pooled hitbox
+        GameObject newHitboxObj = ObjectPooler.objectPool.getPooledObject("Hitbox");
+        newHitboxObj.transform.parent = null;
+        Hitbox hitbox = newHitboxObj.GetComponent<Hitbox>();
+        hitbox.reinitialize(user, damage, lifetime, canHitSelf, reusable);
+        newHitboxObj.SetActive(true);
+        return newHitboxObj;
     }
 
     // Reinitialize variables, should be used if repurposing a hitbox.
@@ -83,32 +97,24 @@ public class Hitbox : MonoBehaviour {
         
     }
 
-    // Default behavior is to deactivate hitbox object when lifetime is 0.
+    // Hitboxes handle their own lifetime. When lifetime runs out, they deactivate themselves.
 
     protected virtual void FixedUpdate()
     {
-        if (reusable == true)
+        if (currentLifetime > 0)
         {
-            if (currentLifetime > 0)
-            {
-                currentLifetime--;
-            }
-
-            if (currentLifetime == 0)
+            currentLifetime--;
+        }
+        else if (currentLifetime == 0)
+        {
+            if (reusable == true)
             {
                 this.gameObject.SetActive(false);
+                this.reset();
             }
-        }
-        else
-        {
-            if (currentLifetime > 0)
+            else
             {
-                currentLifetime--;
-            }
-
-            if (currentLifetime == 0)
-            {
-                Destroy(this.gameObject);
+                ObjectPooler.objectPool.returnPooledObject(this.gameObject);
             }
         }
     }

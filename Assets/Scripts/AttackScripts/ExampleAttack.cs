@@ -11,7 +11,7 @@ public class ExampleAttack : Attack {
     protected override void Start()
     {
         base.Start();
-        hitboxObj = hitboxFactory.createHitbox(originObject, 10f, .33f, false, true);
+        hitboxObj = Hitbox.createHitbox(originObject, 10f, .33f, false, true);
         hitbox = hitboxObj.GetComponent<Hitbox>();
         hitboxObj.transform.SetParent(originObject.transform, false);
         hitboxObj.transform.localScale = new Vector3(.5f, .7f, 2f);
@@ -23,6 +23,5 @@ public class ExampleAttack : Attack {
     protected override void attackAction()
     {
         hitboxObj.SetActive(true);
-        hitbox.reset();
     }
 }

@@ -6,7 +6,6 @@ public class Shoot : Attack {
     private GameObject hitboxObj;
     private Hitbox hitbox;
 
-    // Must initialize hitbox factory manually if not supplied.
     protected override void Start()
     {
         base.Start();
@@ -14,7 +13,7 @@ public class Shoot : Attack {
 
     protected override void attackAction()
     {
-        hitboxObj = hitboxFactory.createHitbox(originObject, 10f, 5f, false, false);
+        hitboxObj = Hitbox.createHitbox(originObject, 10f, 5f, false, false);
         hitbox = hitboxObj.GetComponent<Hitbox>();
         hitboxObj.transform.SetParent(originObject.transform, false);
         hitboxObj.transform.localScale = new Vector3(.2f, .2f, 2f);
