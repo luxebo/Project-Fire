@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hitbox
   - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX

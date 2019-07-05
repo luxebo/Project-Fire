@@ -1067,8 +1067,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSeconds: 0.5
   originObject: {fileID: 1893317111}
-  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
-    type: 2}
 --- !u!114 &1893317120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,8 +1091,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSeconds: 1
   originObject: {fileID: 1893317111}
-  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
-    type: 2}
   selfDamage: 15
 --- !u!114 &1893317122
 MonoBehaviour:
@@ -1109,8 +1105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSeconds: 2.5
   originObject: {fileID: 1893317111}
-  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
-    type: 2}
 --- !u!114 &1893317123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,8 +1118,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSeconds: 0.5
   originObject: {fileID: 1893317111}
-  hitboxFactoryObj: {fileID: 1931077098760204, guid: 288f6941676d8454290e21d240293429,
-    type: 2}
 --- !u!1 &1988311499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1242,11 @@ MonoBehaviour:
   itemsToPool:
   - objectToPool: {fileID: 1715462255078510, guid: b8c6f764b8a692042a8caa9694b4ad17,
       type: 2}
-    amountToPool: 30
+    amountToPool: 20
+    maxPoolAmount: 256
+  - objectToPool: {fileID: 1618583326750138, guid: b2dfcb42ab9255e4d87908662bdfc94c,
+      type: 2}
+    amountToPool: 20
     maxPoolAmount: 256
 --- !u!4 &2039355530
 Transform:

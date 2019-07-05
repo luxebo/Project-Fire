@@ -45,7 +45,7 @@ abstract public class Attack : MonoBehaviour {
     // Children classes must override this method.
     abstract protected void attackAction();
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (currentCooldown > 0)
         {
