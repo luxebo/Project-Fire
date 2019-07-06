@@ -7,8 +7,8 @@ public class CameraFollowPlayer : MonoBehaviour
     public Transform player;
     public float upLimit;
     public float downLimit;
-    public float rightLimit;
     public float leftLimit;
+    public float rightLimit;
     Vector3 cxy;
     bool followPlayer = true;
     float fov = 60.0f;
@@ -51,7 +51,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
     void camUnlocked()
     {
-        float panSpeed = 100.0f;
+        float panSpeed = 300.0f;
         float border = 30.0f;
         Vector3 pos = transform.position;
         if (Input.mousePosition.x >= Screen.width - border)
@@ -70,8 +70,8 @@ public class CameraFollowPlayer : MonoBehaviour
         {
             pos.z -= panSpeed * Time.deltaTime;
         }
-        pos.x = Mathf.Clamp(pos.x, downLimit, upLimit);
-        pos.z = Mathf.Clamp(pos.z, leftLimit, rightLimit);
+        pos.x = Mathf.Clamp(pos.x, leftLimit, rightLimit);
+        pos.z = Mathf.Clamp(pos.z, downLimit, upLimit);
         transform.position = pos;
     }
 

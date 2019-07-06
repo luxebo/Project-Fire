@@ -9,12 +9,17 @@ public class LevelManager : MonoBehaviour
     private bool paused = false;
     public GameObject PauseMenu;
     public GameObject DisablePlayer;
+
     public void Update()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "Level 1")
+        string[] pausable = { "Level 1", "EnemyTest" };
+        for (int i = 0; i < pausable.Length; i++)
         {
-            callPauseMenu(keybind);
+            if (currentScene.name == pausable[i])
+            {
+                callPauseMenu(keybind);
+            }
         }
     }
 
