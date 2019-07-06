@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToPool:
-  - objectToPool: {fileID: 1715462255078510, guid: b8c6f764b8a692042a8caa9694b4ad17,
+  - objectToPool: {fileID: 1618583326750138, guid: b2dfcb42ab9255e4d87908662bdfc94c,
       type: 2}
     amountToPool: 20
     maxPoolAmount: 256
