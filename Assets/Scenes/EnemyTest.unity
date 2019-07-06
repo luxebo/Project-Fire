@@ -1330,6 +1330,10 @@ MonoBehaviour:
       type: 2}
     amountToPool: 20
     maxPoolAmount: 256
+  - objectToPool: {fileID: 1618583326750138, guid: b2dfcb42ab9255e4d87908662bdfc94c,
+      type: 2}
+    amountToPool: 20
+    maxPoolAmount: 256
 --- !u!4 &2039355530
 Transform:
   m_ObjectHideFlags: 0
