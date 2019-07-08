@@ -14,10 +14,14 @@ public class Shoot : Attack {
     protected override void attackAction()
     {
         float range = 3000f;
-        GameObject hitboxObj = Projectile.createProjectile(originObject, 10f, 5f, false, range, new Vector3(0, 0, range/.75f));
+        Vector3 velocity = new Vector3(0, 0, range / .75f);
+        GameObject hitboxObj = Projectile.createProjectile(originObject, 10f, 5f, false, range, velocity);
+        Projectile proj = hitboxObj.GetComponent<Projectile>();
         hitboxObj.transform.SetParent(originObject.transform, false);
         hitboxObj.transform.localScale = new Vector3(.2f, .2f, 2f);
         hitboxObj.transform.localPosition = new Vector3(0, 0, 0.6f);
+        hitboxObj.transform.localRotation = Quaternion.identity;
+        proj.setVelocity(hitboxObj.transform.forward * velocity.magnitude);
         hitboxObj.transform.SetParent(null, true);
     }
 

@@ -48,7 +48,7 @@ public class Projectile : Hitbox {
         base.FixedUpdate();
         if (rangeTraveled < range)
         {
-            print(rangeTraveled);
+            //print(rangeTraveled);
             Vector3 actualVelocity = (rangeTraveled + velocityInUpdates.magnitude) < range ?
                 velocityInUpdates : Vector3.ClampMagnitude(velocityInUpdates, range - rangeTraveled);
             gameObject.transform.position += velocityInUpdates;
