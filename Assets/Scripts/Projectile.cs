@@ -1,12 +1,16 @@
-﻿using System.Collections;
+﻿// A projectile is a Hitbox that handles its own movement. A hitbox will move in 
+// the direction of the specified velocity, up to a certain range. Like hitboxes,
+// the transform of the projectile is not handled by the projectile, and must be
+// manually performed.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : Hitbox {
     public float range;
-    public Vector3 startVelocity;
+    public Vector3 startVelocity; // Per second
     private float rangeTraveled;
-    private Vector3 velocityInUpdates;
+    private Vector3 velocityPerUpdate;
     
 
 	// Use this for initialization
@@ -14,6 +18,7 @@ public class Projectile : Hitbox {
         base.Start();
 	}
 
+    // Get a GameObject with an attached Projectile component.
     public static GameObject createProjectile(GameObject u, float dam, float lifetime, bool hurtSelf, float range, Vector3 vel)
     {
         GameObject newHitboxObj = ObjectPooler.objectPool.getPooledObject("Projectile");
@@ -26,6 +31,7 @@ public class Projectile : Hitbox {
         return newHitboxObj;
     }
 
+    // Resets lifetime and range traveled.
     public override void reset()
     {
         base.reset();
@@ -38,9 +44,10 @@ public class Projectile : Hitbox {
         convertVelocity();
     }
 
+    // Convert the velocity per second to updates.
     private void convertVelocity()
     {
-        velocityInUpdates = startVelocity * Time.fixedDeltaTime;
+        velocityPerUpdate = startVelocity * Time.fixedDeltaTime;
     }
 	
 	// Update is called once per frame
@@ -48,10 +55,11 @@ public class Projectile : Hitbox {
         base.FixedUpdate();
         if (rangeTraveled < range)
         {
-            //print(rangeTraveled);
-            Vector3 actualVelocity = (rangeTraveled + velocityInUpdates.magnitude) < range ?
-                velocityInUpdates : Vector3.ClampMagnitude(velocityInUpdates, range - rangeTraveled);
-            gameObject.transform.position += velocityInUpdates;
+            // Determine how many units to move
+            Vector3 actualVelocity = (rangeTraveled + velocityPerUpdate.magnitude) < range ?
+                velocityPerUpdate : Vector3.ClampMagnitude(velocityPerUpdate, range - rangeTraveled);
+            gameObject.transform.position += velocityPerUpdate;
+            // keep track of units traveled
             rangeTraveled += actualVelocity.magnitude;
         }
         
