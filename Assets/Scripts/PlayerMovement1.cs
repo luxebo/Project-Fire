@@ -14,12 +14,14 @@ public class PlayerMovement1 : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private float rotationInput;
+    private float rotateSpeedInUpdates;
 
     // Use this for initialization
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
         myRigidbody.freezeRotation = true;
+        rotateSpeedInUpdates = rotateSpeed * Time.fixedDeltaTime;
     }
 
     // Update is called once per frame
@@ -70,7 +72,7 @@ public class PlayerMovement1 : MonoBehaviour
         myRigidbody.velocity = moveVelocity;
 
         // apply rotation
-        transform.Rotate(transform.up * rotationInput * rotateSpeed);
+        transform.Rotate(transform.up * rotationInput * rotateSpeedInUpdates);
         
 
         // Bugged, idk if we need rotation in the direction the player moves. Also is hard to test with cube.

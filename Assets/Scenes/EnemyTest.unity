@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rotateSpeed: 4
+  rotateSpeed: 220
   cameraRelative: 1
 --- !u!114 &1893317117
 MonoBehaviour:
