@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class ExampleAttack : Attack {
     private GameObject hitboxObj;
-    private Hitbox hitbox;
 
     // Must initialize hitbox factory manually if not supplied.
     protected override void Start()
     {
         base.Start();
         hitboxObj = Hitbox.createHitbox(originObject, 10f, .33f, false, true);
-        hitbox = hitboxObj.GetComponent<Hitbox>();
         hitboxObj.transform.SetParent(originObject.transform, false);
         hitboxObj.transform.localScale = new Vector3(.5f, .7f, 2f);
         hitboxObj.transform.localPosition = new Vector3(1.05f, 0);

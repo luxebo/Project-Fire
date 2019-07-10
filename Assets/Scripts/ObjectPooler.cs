@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// A class representing an object pool, a storage for reusable objects.
+// ObjectPooler keeps an expandable queue of different types of objects.
+// Any object that can be used with Instantiate() can be stored.
+// Objects are obtained using getPooledObject(), which also handles pool expansion
+// Instead of destroying objects obtained from the pool, use returnPooledObject().
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

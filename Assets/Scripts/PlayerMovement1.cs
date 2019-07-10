@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// Script for controlling the player's movement.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -45,14 +46,8 @@ public class PlayerMovement1 : MonoBehaviour
 
             moveDirection = camForward * moveInput.z + camRight * moveInput.x;
         }
-        moveVelocity = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed); // Ensure that velocity is no greater than moveSpeed
+        moveVelocity = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed); // Ensure that velocity magnitude is no greater than moveSpeed
 
-        /**
-        if (Input.GetAxisRaw("Horizontal") >= 1 && Input.GetAxisRaw("Vertical") >= 1)
-        {
-            moveInput = new Vector3(Input.GetAxisRaw("Horizontal") / Mathf.Sqrt(2),0, Input.GetAxisRaw("Vertical") /Mathf.Sqrt(2));
-        }
-        */
         if (moveInput != Vector3.zero)
         {
             NavMeshAgent player = GetComponent<NavMeshAgent>();

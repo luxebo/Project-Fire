@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// Shoot a projectile forward.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class Shoot : Attack {
         hitboxObj.transform.localPosition = new Vector3(0, 0, 0.6f);
         hitboxObj.transform.localRotation = Quaternion.identity;
         proj.setVelocity(hitboxObj.transform.forward * velocity.magnitude);
+        // Detach projectile so it moves independently of the origin object.
         hitboxObj.transform.SetParent(null, true);
     }
 
