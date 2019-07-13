@@ -5,29 +5,44 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CombatActor : MonoBehaviour {
-    public int health;
+    public int maxHealth;
     public int regen;
+    public bool pooled;
     private bool alive;
-    private int max;
+    private int currentHealth;
     private float timer = 0.0f;
     private float prevTime = 1.0f;
     // Use this for initialization
     protected virtual void Start() {
-        max = health;
+        currentHealth = maxHealth;
         alive = true;
     }
-	
-	// Update is called once per frame
-	protected virtual void Update ()
+
+    protected void OnEnable()
+    {
+        currentHealth = maxHealth;
+        alive = true;
+        timer = 0.0f;
+        prevTime = 1.0f;
+    }
+
+    public int Health
+    {
+        get { return currentHealth; }
+        set { currentHealth = Mathf.Min(maxHealth, Mathf.Max(value, 0)); }
+    }
+
+    // Update is called once per frame
+    protected virtual void Update ()
     {
         timer += Time.deltaTime;
-        if (regen != 0 && health < max)
+        if (regen != 0 && currentHealth < maxHealth)
         {
             if (timer > prevTime)
             {
                 prevTime += 1.0f;
-                health = health + regen <= max ? health + regen : max; // Do not overheal
-                print(health);
+                currentHealth = currentHealth + regen <= maxHealth ? currentHealth + regen : maxHealth; // Do not overheal
+                print(currentHealth);
             }
         }
         if (alive == false)
@@ -36,9 +51,10 @@ public class CombatActor : MonoBehaviour {
         }
 	}
 
+
     protected virtual void FixedUpdate()
     {
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             alive = false;
         }
@@ -52,6 +68,9 @@ public class CombatActor : MonoBehaviour {
         {
             SceneManager.LoadScene("Dead");
         }
-        Destroy(this.gameObject);
+        if (pooled)
+            ObjectPooler.objectPool.returnPooledObject(gameObject);
+        else
+            Destroy(this.gameObject);
     }
 }

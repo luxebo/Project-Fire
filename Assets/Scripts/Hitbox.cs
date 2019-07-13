@@ -77,9 +77,9 @@ public class Hitbox : MonoBehaviour {
         CombatActor enemy = other.gameObject.GetComponent<CombatActor>();
         if (enemy != null)
         {
-            enemy.health -= Mathf.FloorToInt(damage);
+            enemy.Health -= Mathf.FloorToInt(damage);
             // for debugging
-            print(enemy.health);
+            print(enemy.Health);
         }
         /**
          * // Commenting out this code b/c it means hitboxes colliding also damages user

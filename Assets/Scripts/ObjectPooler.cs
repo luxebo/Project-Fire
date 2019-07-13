@@ -48,6 +48,12 @@ public class ObjectPooler : MonoBehaviour {
         }
 	}
 
+    // Checking the status of the pool
+    public bool hasObject(string tag)
+    {
+        return allPools.ContainsKey(tag);
+    }
+
     // Use the following two methods to get objects from the pool.
 
     public GameObject getPooledObject(string tag)
@@ -145,7 +151,7 @@ public class ObjectPooler : MonoBehaviour {
         {
             objectCount[tag]++;
             GameObject newObj = Instantiate(item.objectToPool);
-            newObj.SetActive(true);
+            newObj.SetActive(false);
             return newObj;
         }
         return null;
@@ -161,7 +167,7 @@ public class ObjectPooler : MonoBehaviour {
         for (int i = 0; i < howMany; i++)
         {
             GameObject newObj = Instantiate(item.objectToPool);
-            newObj.SetActive(true);
+            newObj.SetActive(false);
             fillList.Add(newObj);
         }
         objectCount[tag] += howMany;
