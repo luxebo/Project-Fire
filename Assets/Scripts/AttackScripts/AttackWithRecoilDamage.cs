@@ -49,9 +49,9 @@ public class AttackWithRecoilDamage : Attack {
         CombatActor selfDmg = GetComponentInParent<CombatActor>();
         if (selfDmg != null)
         {
-            selfDmg.health -= Mathf.FloorToInt(selfDamage);
+            selfDmg.Health -= Mathf.FloorToInt(selfDamage);
             // for debugging
-            print(selfDmg.health);
+            print(selfDmg.Health);
         }
         
     }
