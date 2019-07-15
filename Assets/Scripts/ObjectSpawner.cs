@@ -34,8 +34,9 @@ public class ObjectSpawner : MonoBehaviour {
         {
             newObj.SetActive(true);
             newObj.transform.SetParent(gameObject.transform, true);
+            newObj.GetComponent<Rigidbody>().velocity = Vector3.zero;
             newObj.transform.localPosition = Vector3.zero;
-            newObj.transform.SetParent(null, true);
+            newObj.transform.SetParent(gameObject.transform.parent, true);
             numSpawned++;
             return true;
         }
