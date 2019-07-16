@@ -40,4 +40,10 @@ public class HotkeysSettings {
             }
         }
     }
+
+    public KeyCode loadHotkeySpecific(int i)
+    {
+        string keycode = hotkeys[i];
+        return (KeyCode)System.Enum.Parse(typeof(KeyCode), keycode);
+    }
 }

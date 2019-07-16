@@ -1,6 +1,7 @@
 ﻿// Script for controlling the player's movement.
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,7 @@ public class PlayerMovement1 : MonoBehaviour
     private Vector3 moveVelocity;
     private float rotationInput;
     private float rotateSpeedInUpdates;
+    HotkeysSettings hk;
 
     // Use this for initialization
     void Start()
@@ -23,6 +25,22 @@ public class PlayerMovement1 : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody>();
         myRigidbody.freezeRotation = true;
         rotateSpeedInUpdates = rotateSpeed * Time.fixedDeltaTime;
+        hk = Hotkeys.loadHotkeys();
+        SerializedObject serializedObject = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0]);
+        SerializedProperty axesProperty = serializedObject.FindProperty("m_Axes");
+        SerializedProperty hPos = GetChildProperty(axesProperty, "positiveButton", "right");
+        SerializedProperty hNeg = GetChildProperty(axesProperty, "negativeButton", "left");
+        SerializedProperty vPos = GetChildProperty(axesProperty, "positiveButton", "up");
+        SerializedProperty vNeg = GetChildProperty(axesProperty, "negativeButton", "down");
+        SerializedProperty h2Pos = GetChildProperty(axesProperty, "positiveButton", "d");
+        SerializedProperty h2Neg = GetChildProperty(axesProperty, "negativeButton", "a");
+        hPos.stringValue = hk.loadHotkeySpecific(2).ToString().ToLower();
+        hNeg.stringValue = hk.loadHotkeySpecific(3).ToString().ToLower();
+        vPos.stringValue = hk.loadHotkeySpecific(0).ToString().ToLower();
+        vNeg.stringValue = hk.loadHotkeySpecific(1).ToString().ToLower();
+        h2Pos.stringValue = hk.loadHotkeySpecific(4).ToString().ToLower();
+        h2Neg.stringValue = hk.loadHotkeySpecific(5).ToString().ToLower();
+        serializedObject.ApplyModifiedProperties();
     }
 
     // Update is called once per frame
@@ -68,5 +86,17 @@ public class PlayerMovement1 : MonoBehaviour
 
         // apply rotation
         transform.Rotate(transform.up * rotationInput * rotateSpeedInUpdates);
+    }
+
+    private static SerializedProperty GetChildProperty(SerializedProperty parent, string name, string stringVal)
+    {
+        SerializedProperty child = parent.Copy();
+        child.Next(true);
+        do
+        {
+            if (child.name == name && child.stringValue == stringVal) return child;
+        }
+        while (child.Next(true));
+        return null;
     }
 }   

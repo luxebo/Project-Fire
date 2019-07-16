@@ -20,13 +20,19 @@ public class PlayerAttackScript : MonoBehaviour {
     private AttackWithRecoilDamage attack2;
     private AttackThatCanHitSelf attack3;
     private Shoot attack4;
+    HotkeysSettings hk;
 
     void Start()
     {
+        hk = Hotkeys.loadHotkeys();
         attack1 = GetComponent<ExampleAttack>();
         attack2 = GetComponent<AttackWithRecoilDamage>();
         attack3 = GetComponent<AttackThatCanHitSelf>();
         attack4 = GetComponent<Shoot>();
+        keybind1 = hk.loadHotkeySpecific(7);
+        keybind2 = hk.loadHotkeySpecific(8);
+        keybind3 = hk.loadHotkeySpecific(9);
+        keybind4 = hk.loadHotkeySpecific(10);
     }
     // Update is called once per frame
     void Update () {

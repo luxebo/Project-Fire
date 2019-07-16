@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
+    private KeyCode keybind1 = KeyCode.L;
     public Transform player;
     public float upLimit;
     public float downLimit;
@@ -12,11 +13,14 @@ public class CameraFollowPlayer : MonoBehaviour
     Vector3 cxy;
     bool followPlayer = true;
     float fov = 60.0f;
+    HotkeysSettings hk;
     // Use this for initialization
     //z and x
     void Start()
     {
         cxy = transform.position - player.position;
+        hk = Hotkeys.loadHotkeys();
+        keybind1 = hk.loadHotkeySpecific(6);
     }
 
     // Update is called once per frame
@@ -25,7 +29,7 @@ public class CameraFollowPlayer : MonoBehaviour
         if (followPlayer == true)
         {
             camFollowPlayer();
-            if (Input.GetKeyDown("l"))
+            if (Input.GetKeyDown(keybind1))
             {
                 followPlayer = false;
             }
@@ -34,7 +38,7 @@ public class CameraFollowPlayer : MonoBehaviour
         else
         {
             camUnlocked();
-            if (Input.GetKeyDown("l"))
+            if (Input.GetKeyDown(keybind1))
             {
                 followPlayer = true;
             }
