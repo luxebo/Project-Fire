@@ -46,8 +46,8 @@ public class BumpEnemy : MonoBehaviour {
             stun_timer--;
         }
     }
-
-    private void OnTriggerStay(Collider other)
+    
+    private void OnCollisionStay(Collision other)
     {
         // Bounce off if touching player
         if(other.gameObject == player && stun_timer == 0)
