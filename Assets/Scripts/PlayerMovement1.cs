@@ -34,12 +34,12 @@ public class PlayerMovement1 : MonoBehaviour
         SerializedProperty vNeg = GetChildProperty(axesProperty, "negativeButton", "down");
         SerializedProperty h2Pos = GetChildProperty(axesProperty, "positiveButton", "d");
         SerializedProperty h2Neg = GetChildProperty(axesProperty, "negativeButton", "a");
-        hPos.stringValue = hk.loadHotkeySpecific(2).ToString().ToLower();
-        hNeg.stringValue = hk.loadHotkeySpecific(3).ToString().ToLower();
-        vPos.stringValue = hk.loadHotkeySpecific(0).ToString().ToLower();
-        vNeg.stringValue = hk.loadHotkeySpecific(1).ToString().ToLower();
-        h2Pos.stringValue = hk.loadHotkeySpecific(4).ToString().ToLower();
-        h2Neg.stringValue = hk.loadHotkeySpecific(5).ToString().ToLower();
+        hPos.stringValue = hk.loadHotkeyTranslated(2);
+        hNeg.stringValue = hk.loadHotkeyTranslated(3);
+        vPos.stringValue = hk.loadHotkeyTranslated(0);
+        vNeg.stringValue = hk.loadHotkeyTranslated(1);
+        h2Pos.stringValue = hk.loadHotkeyTranslated(4);
+        h2Neg.stringValue = hk.loadHotkeyTranslated(5);
         serializedObject.ApplyModifiedProperties();
     }
 
