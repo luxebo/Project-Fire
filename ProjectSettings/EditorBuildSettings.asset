@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hotkeys.unity
     guid: 6fdc2789dfbd1024ead3b7626700ca1e
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: fd725ddf5596a5b4daf02a74465dfa37
+  - enabled: 1
+    path: Assets/Scenes/AssetTest.unity
+    guid: f8d9f34cb9d71ce4ea59c347858e25aa
   m_configObjects: {}

@@ -28,18 +28,18 @@ public class PlayerMovement1 : MonoBehaviour
         hk = Hotkeys.loadHotkeys();
         SerializedObject serializedObject = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0]);
         SerializedProperty axesProperty = serializedObject.FindProperty("m_Axes");
-        SerializedProperty hPos = GetChildProperty(axesProperty, "positiveButton", "right");
-        SerializedProperty hNeg = GetChildProperty(axesProperty, "negativeButton", "left");
-        SerializedProperty vPos = GetChildProperty(axesProperty, "positiveButton", "up");
-        SerializedProperty vNeg = GetChildProperty(axesProperty, "negativeButton", "down");
-        SerializedProperty h2Pos = GetChildProperty(axesProperty, "positiveButton", "d");
-        SerializedProperty h2Neg = GetChildProperty(axesProperty, "negativeButton", "a");
+        SerializedProperty hPos = GetChildProperty(axesProperty, "m_Name", "Horizontal", true);
+        SerializedProperty hNeg = GetChildProperty(axesProperty, "m_Name", "Horizontal", false);
+        SerializedProperty vPos = GetChildProperty(axesProperty, "m_Name", "Vertical", true);
+        SerializedProperty vNeg = GetChildProperty(axesProperty, "m_Name", "Vertical", false);
+        SerializedProperty h2Pos = GetChildProperty(axesProperty, "m_Name", "Horizontal2", true);
+        SerializedProperty h2Neg = GetChildProperty(axesProperty, "m_Name", "Horizontal2", false);
         hPos.stringValue = hk.loadHotkeyTranslated(2);
         hNeg.stringValue = hk.loadHotkeyTranslated(3);
         vPos.stringValue = hk.loadHotkeyTranslated(0);
         vNeg.stringValue = hk.loadHotkeyTranslated(1);
-        h2Pos.stringValue = hk.loadHotkeyTranslated(4);
-        h2Neg.stringValue = hk.loadHotkeyTranslated(5);
+        h2Pos.stringValue = hk.loadHotkeyTranslated(5);
+        h2Neg.stringValue = hk.loadHotkeyTranslated(4);
         serializedObject.ApplyModifiedProperties();
     }
 
@@ -88,13 +88,27 @@ public class PlayerMovement1 : MonoBehaviour
         transform.Rotate(transform.up * rotationInput * rotateSpeedInUpdates);
     }
 
-    private static SerializedProperty GetChildProperty(SerializedProperty parent, string name, string stringVal)
+    private static SerializedProperty GetChildProperty(SerializedProperty parent, string name, string stringVal, bool positive)
     {
         SerializedProperty child = parent.Copy();
         child.Next(true);
         do
         {
-            if (child.name == name && child.stringValue == stringVal) return child;
+            if (child.name == name && child.stringValue == stringVal && positive)
+            {
+                child.Next(false);
+                child.Next(false);
+                child.Next(false);
+                child.Next(false);
+                return child; //Return positive button
+            }
+            else if (child.name == name && child.stringValue == stringVal && !positive)
+            {
+                child.Next(false);
+                child.Next(false);
+                child.Next(false);
+                return child; //Return negative button
+            }
         }
         while (child.Next(true));
         return null;

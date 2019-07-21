@@ -8,12 +8,11 @@ public class LevelManager : MonoBehaviour
     private KeyCode keybind = KeyCode.Escape;
     private bool paused = false;
     public GameObject PauseMenu;
-    public GameObject DisablePlayer;
+    string[] pausable = { "Level 1", "EnemyTest" };
 
     public void Update()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        string[] pausable = { "Level 1", "EnemyTest" };
         for (int i = 0; i < pausable.Length; i++)
         {
             if (currentScene.name == pausable[i])
@@ -29,6 +28,11 @@ public class LevelManager : MonoBehaviour
         {
             Application.Quit();
         }
+        if (PauseMenu != null && sceneInPausable(scene))
+        {
+            paused = false;
+            Time.timeScale = 1f;
+        }
         SceneManager.LoadScene(scene);
     }
 
@@ -41,14 +45,12 @@ public class LevelManager : MonoBehaviour
                 PauseMenu.SetActive(false);
                 Time.timeScale = 1f;
                 paused = false;
-                DisablePlayer.SetActive(true);
             }
             else
             {
                 PauseMenu.SetActive(true);
                 Time.timeScale = 0f;
                 paused = true;
-                DisablePlayer.SetActive(false);
             }
         }
     }
@@ -58,6 +60,18 @@ public class LevelManager : MonoBehaviour
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
         paused = false;
-        DisablePlayer.SetActive(true);
+    }
+
+    private bool sceneInPausable(string scene)
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        for (int i = 0; i < pausable.Length; i++)
+        {
+            if (currentScene.name == pausable[i])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
