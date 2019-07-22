@@ -7,24 +7,34 @@ using UnityEngine.AI;
 
 public class PlayerMovement1 : MonoBehaviour
 {
-
     public float moveSpeed;
-    public float rotateSpeed;
-    public bool cameraRelative;
-    private Rigidbody myRigidbody;
+    public float centerMouseDeadzoneRadius; // Defines a deadzone around the player where mouse movements are not read.
 
+    public bool cameraRelative;
+    
+
+    private Rigidbody myRigidbody;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
-    private float rotationInput;
-    private float rotateSpeedInUpdates;
-    HotkeysSettings hk;
+    private Vector3 mouseWorldPosition;
+    private Plane playerPlane;
+    private Vector3 lastMousePosition;
+
+    private KeyCode up = KeyCode.W;
+    private KeyCode down = KeyCode.S;
+    private KeyCode left = KeyCode.A;
+    private KeyCode right = KeyCode.D;
+    //HotkeysSettings hk;
 
     // Use this for initialization
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
         myRigidbody.freezeRotation = true;
-        rotateSpeedInUpdates = rotateSpeed * Time.fixedDeltaTime;
+        playerPlane = new Plane(transform.up, transform.position); // Need plane for raycasting
+        lastMousePosition = Vector3.zero;
+
+        /**
         hk = Hotkeys.loadHotkeys();
         SerializedObject serializedObject = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0]);
         SerializedProperty axesProperty = serializedObject.FindProperty("m_Axes");
@@ -41,13 +51,33 @@ public class PlayerMovement1 : MonoBehaviour
         h2Pos.stringValue = hk.loadHotkeyTranslated(5);
         h2Neg.stringValue = hk.loadHotkeyTranslated(4);
         serializedObject.ApplyModifiedProperties();
+        **/
     }
 
     // Update is called once per frame
     void Update()
     {
-        // movement
-        moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        moveInput = Vector3.zero;
+        // Get movement input. No movement along an axis if opposite directions pressed at same time.
+        if (Input.GetKey(up) && !Input.GetKey(down))
+        {
+            moveInput.z = 1;
+        }
+        else if (!Input.GetKey(up) && Input.GetKey(down))
+        {
+            moveInput.z = -1;
+        }
+
+        if (Input.GetKey(left) && !Input.GetKey(right))
+        {
+            moveInput.x = -1;
+        }
+        else if (!Input.GetKey(left) && Input.GetKey(right))
+        {
+            moveInput.x = 1;
+        }
+
+
         Vector3 moveDirection = moveInput;
         // Camera relative movement
         if (cameraRelative)
@@ -72,20 +102,28 @@ public class PlayerMovement1 : MonoBehaviour
             player.isStopped = true;
         }
 
-        // Rotation
-        rotationInput = Input.GetAxisRaw("Horizontal2");
+        // Rotate to face mouse position.
+        if (Input.mousePosition != lastMousePosition) // Only update when mouse actually moves.
+        {
+            lastMousePosition = Input.mousePosition;
+            bool hit = false;
+            playerPlane.SetNormalAndPosition(transform.up, transform.position);
+            mouseWorldPosition = MouseUtility.MouseWorldPoint(playerPlane, out hit);
+            if (hit && Vector3.Distance(transform.position, mouseWorldPosition) > centerMouseDeadzoneRadius)
+            {
+                transform.LookAt(mouseWorldPosition);
+            }
+        }
         
 
     }
 
     void FixedUpdate() {
-        // Set relative to Space.world for movement independent of rotation.
+        // Set relative to Space.World for movement independent of rotation.
         // Set relative to Space.Self for movement based on rotation.
         transform.Translate(moveVelocity, Space.World);
         myRigidbody.velocity = moveVelocity;
-
-        // apply rotation
-        transform.Rotate(transform.up * rotationInput * rotateSpeedInUpdates);
+        
     }
 
     private static SerializedProperty GetChildProperty(SerializedProperty parent, string name, string stringVal, bool positive)

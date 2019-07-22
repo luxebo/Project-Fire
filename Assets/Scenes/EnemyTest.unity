@@ -484,6 +484,10 @@ Prefab:
       propertyPath: m_Name
       value: BumpEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1152412495621650, guid: 0b63ecacc48e22540ba3f767c8d6df7c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b63ecacc48e22540ba3f767c8d6df7c, type: 2}
   m_IsPrefabAsset: 0
@@ -1051,7 +1055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 1460209715}
-  DisablePlayer: {fileID: 656398881}
 --- !u!4 &1607233725
 Transform:
   m_ObjectHideFlags: 0
@@ -1393,7 +1396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rotateSpeed: 220
+  centerMouseDeadzoneRadius: 20
   cameraRelative: 1
 --- !u!114 &1893317117
 MonoBehaviour:
