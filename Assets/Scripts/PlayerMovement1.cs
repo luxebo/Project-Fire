@@ -1,7 +1,7 @@
 ﻿// Script for controlling the player's movement.
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using UnityEditor; //problem
 using UnityEngine;
 using UnityEngine.AI;
 
