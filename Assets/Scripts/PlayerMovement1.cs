@@ -80,13 +80,13 @@ public class PlayerMovement1 : MonoBehaviour
             moveDirection = camForward * moveInput.z + camRight * moveInput.x;
         }
         moveVelocity = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed); // Ensure that velocity magnitude is no greater than moveSpeed
-
+        /**
         if (moveInput != Vector3.zero)
         {
             NavMeshAgent player = GetComponent<NavMeshAgent>();
             player.isStopped = true;
         }
-
+        */
         // Rotate to face mouse position.
         if (Input.mousePosition != lastMousePosition) // Only update when mouse actually moves.
         {
