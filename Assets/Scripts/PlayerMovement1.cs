@@ -1,7 +1,6 @@
 ﻿// Script for controlling the player's movement.
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor; //problem
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,34 +23,20 @@ public class PlayerMovement1 : MonoBehaviour
     private KeyCode down = KeyCode.S;
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
-    //HotkeysSettings hk;
+    HotkeysSettings hk;
 
     // Use this for initialization
     void Start()
     {
+        hk = Hotkeys.loadHotkeys();
+        up = hk.loadHotkeySpecific(0);
+        down = hk.loadHotkeySpecific(1);
+        left = hk.loadHotkeySpecific(2);
+        right = hk.loadHotkeySpecific(3);
         myRigidbody = GetComponent<Rigidbody>();
         myRigidbody.freezeRotation = true;
         playerPlane = new Plane(transform.up, transform.position); // Need plane for raycasting
         lastMousePosition = Vector3.zero;
-
-        /**
-        hk = Hotkeys.loadHotkeys();
-        SerializedObject serializedObject = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0]);
-        SerializedProperty axesProperty = serializedObject.FindProperty("m_Axes");
-        SerializedProperty hPos = GetChildProperty(axesProperty, "m_Name", "Horizontal", true);
-        SerializedProperty hNeg = GetChildProperty(axesProperty, "m_Name", "Horizontal", false);
-        SerializedProperty vPos = GetChildProperty(axesProperty, "m_Name", "Vertical", true);
-        SerializedProperty vNeg = GetChildProperty(axesProperty, "m_Name", "Vertical", false);
-        SerializedProperty h2Pos = GetChildProperty(axesProperty, "m_Name", "Horizontal2", true);
-        SerializedProperty h2Neg = GetChildProperty(axesProperty, "m_Name", "Horizontal2", false);
-        hPos.stringValue = hk.loadHotkeyTranslated(2);
-        hNeg.stringValue = hk.loadHotkeyTranslated(3);
-        vPos.stringValue = hk.loadHotkeyTranslated(0);
-        vNeg.stringValue = hk.loadHotkeyTranslated(1);
-        h2Pos.stringValue = hk.loadHotkeyTranslated(5);
-        h2Neg.stringValue = hk.loadHotkeyTranslated(4);
-        serializedObject.ApplyModifiedProperties();
-        **/
     }
 
     // Update is called once per frame
@@ -114,8 +99,6 @@ public class PlayerMovement1 : MonoBehaviour
                 transform.LookAt(mouseWorldPosition);
             }
         }
-        
-
     }
 
     void FixedUpdate() {
@@ -124,31 +107,5 @@ public class PlayerMovement1 : MonoBehaviour
         transform.Translate(moveVelocity, Space.World);
         myRigidbody.velocity = moveVelocity;
         
-    }
-
-    private static SerializedProperty GetChildProperty(SerializedProperty parent, string name, string stringVal, bool positive)
-    {
-        SerializedProperty child = parent.Copy();
-        child.Next(true);
-        do
-        {
-            if (child.name == name && child.stringValue == stringVal && positive)
-            {
-                child.Next(false);
-                child.Next(false);
-                child.Next(false);
-                child.Next(false);
-                return child; //Return positive button
-            }
-            else if (child.name == name && child.stringValue == stringVal && !positive)
-            {
-                child.Next(false);
-                child.Next(false);
-                child.Next(false);
-                return child; //Return negative button
-            }
-        }
-        while (child.Next(true));
-        return null;
     }
 }   

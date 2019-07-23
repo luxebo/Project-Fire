@@ -20,7 +20,7 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         cxy = transform.position - player.position;
         hk = Hotkeys.loadHotkeys();
-        keybind1 = hk.loadHotkeySpecific(6);
+        keybind1 = hk.loadHotkeySpecific(4);
     }
 
     // Update is called once per frame

@@ -13,7 +13,7 @@ public class NavMeshAgentMove : MonoBehaviour {
     void Start () {
         player = GetComponent<NavMeshAgent>();
         hk = Hotkeys.loadHotkeys();
-        keybind1 = hk.loadHotkeySpecific(11);
+        keybind1 = hk.loadHotkeySpecific(9);
     }
 	
 	// Update is called once per frame

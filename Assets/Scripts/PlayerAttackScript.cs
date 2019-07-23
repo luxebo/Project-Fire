@@ -29,10 +29,10 @@ public class PlayerAttackScript : MonoBehaviour {
         attack2 = GetComponent<AttackWithRecoilDamage>();
         attack3 = GetComponent<AttackThatCanHitSelf>();
         attack4 = GetComponent<Shoot>();
-        keybind1 = hk.loadHotkeySpecific(7);
-        keybind2 = hk.loadHotkeySpecific(8);
-        keybind3 = hk.loadHotkeySpecific(9);
-        keybind4 = hk.loadHotkeySpecific(10);
+        keybind1 = hk.loadHotkeySpecific(5);
+        keybind2 = hk.loadHotkeySpecific(6);
+        keybind3 = hk.loadHotkeySpecific(7);
+        keybind4 = hk.loadHotkeySpecific(8);
     }
     // Update is called once per frame
     void Update () {
