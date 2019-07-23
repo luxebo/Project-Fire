@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     private KeyCode keybind = KeyCode.Escape;
     private bool paused = false;
     public GameObject PauseMenu;
-    string[] pausable = { "Level 1", "EnemyTest" };
+    string[] pausable = { "Level 1", "EnemyTest", "AssetTest" };
 
     public void Update()
     {
