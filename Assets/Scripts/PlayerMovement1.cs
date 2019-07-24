@@ -12,7 +12,7 @@ public class PlayerMovement1 : MonoBehaviour
     public bool cameraRelative;
     
 
-    private Rigidbody myRigidbody;
+    private CharacterController myCharacterController;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
     private Vector3 mouseWorldPosition;
@@ -33,8 +33,8 @@ public class PlayerMovement1 : MonoBehaviour
         down = hk.loadHotkeySpecific(1);
         left = hk.loadHotkeySpecific(2);
         right = hk.loadHotkeySpecific(3);
-        myRigidbody = GetComponent<Rigidbody>();
-        myRigidbody.freezeRotation = true;
+        myCharacterController = GetComponent<CharacterController>();
+
         playerPlane = new Plane(transform.up, transform.position); // Need plane for raycasting
         lastMousePosition = Vector3.zero;
     }
@@ -104,8 +104,8 @@ public class PlayerMovement1 : MonoBehaviour
     void FixedUpdate() {
         // Set relative to Space.World for movement independent of rotation.
         // Set relative to Space.Self for movement based on rotation.
-        transform.Translate(moveVelocity, Space.World);
-        myRigidbody.velocity = moveVelocity;
-        
+        myCharacterController.SimpleMove(moveVelocity);
+
+
     }
 }   
