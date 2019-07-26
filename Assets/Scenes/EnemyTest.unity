@@ -1397,6 +1397,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 500
+  dashSpeedMultiplier: 1.75
+  dashCooldownMultiplier: 0.33
+  dashUpdates: 20
+  dashCooldownUpdates: 10
   centerMouseDeadzoneRadius: 20
   cameraRelative: 1
 --- !u!114 &1893317117

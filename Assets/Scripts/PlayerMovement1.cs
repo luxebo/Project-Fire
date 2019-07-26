@@ -7,11 +7,15 @@ using UnityEngine.AI;
 public class PlayerMovement1 : MonoBehaviour
 {
     public float moveSpeed;
+    public float dashSpeedMultiplier;
+    public float dashCooldownMultiplier;
+    public int dashUpdates;
+    public int dashCooldownUpdates;
     public float centerMouseDeadzoneRadius; // Defines a deadzone around the player where mouse movements are not read.
-
     public bool cameraRelative;
-    
 
+
+    private bool canMove;
     private CharacterController myCharacterController;
     private Vector3 moveInput;
     private Vector3 moveVelocity;
@@ -23,6 +27,7 @@ public class PlayerMovement1 : MonoBehaviour
     private KeyCode down = KeyCode.S;
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
+    private KeyCode dash = KeyCode.LeftShift;
     HotkeysSettings hk;
 
     // Use this for initialization
@@ -34,6 +39,7 @@ public class PlayerMovement1 : MonoBehaviour
         left = hk.loadHotkeySpecific(2);
         right = hk.loadHotkeySpecific(3);
         myCharacterController = GetComponent<CharacterController>();
+        canMove = true;
 
         playerPlane = new Plane(transform.up, transform.position); // Need plane for raycasting
         lastMousePosition = Vector3.zero;
@@ -62,7 +68,6 @@ public class PlayerMovement1 : MonoBehaviour
             moveInput.x = 1;
         }
 
-
         Vector3 moveDirection = moveInput;
         // Camera relative movement
         if (cameraRelative)
@@ -80,6 +85,7 @@ public class PlayerMovement1 : MonoBehaviour
             moveDirection = camForward * moveInput.z + camRight * moveInput.x;
         }
         moveVelocity = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed); // Ensure that velocity magnitude is no greater than moveSpeed
+
         /**
         if (moveInput != Vector3.zero)
         {
@@ -87,6 +93,12 @@ public class PlayerMovement1 : MonoBehaviour
             player.isStopped = true;
         }
         */
+        // Dashing
+        if(canMove && Input.GetKeyDown(dash) && moveVelocity != Vector3.zero)
+        {
+            StartCoroutine(dashAction());
+        }
+
         // Rotate to face mouse position.
         if (Input.mousePosition != lastMousePosition) // Only update when mouse actually moves.
         {
@@ -101,11 +113,39 @@ public class PlayerMovement1 : MonoBehaviour
         }
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         // Set relative to Space.World for movement independent of rotation.
         // Set relative to Space.Self for movement based on rotation.
-        myCharacterController.SimpleMove(moveVelocity);
+        if(canMove)
+            myCharacterController.SimpleMove(moveVelocity);
 
 
     }
+
+    // The object this is attached to moves faster in a single direction for a specified amount of updates,
+    // then slows down for a specified amount of updates.
+    IEnumerator dashAction()
+    {
+        Vector3 dashVelocity = moveVelocity;
+        canMove = false; // Prevent normal movement during a dash.
+        print("dashing");
+        // Dashing
+        for(int i =0; i< dashUpdates; i++)
+        {
+            yield return new WaitForFixedUpdate();
+            myCharacterController.SimpleMove(dashVelocity * dashSpeedMultiplier);
+        }
+        // Cooldown
+        for(int i =0; i< dashCooldownUpdates; i++)
+        {
+            yield return new WaitForFixedUpdate();
+            myCharacterController.SimpleMove(dashVelocity * dashCooldownMultiplier);
+        }
+        canMove = true; // reenable normal movement
+        print("end dashing");
+    }
+    
+
+
 }   
