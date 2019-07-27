@@ -10,14 +10,14 @@ public class NavMeshAgentMove : MonoBehaviour {
     HotkeysSettings hk;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         player = GetComponent<NavMeshAgent>();
         hk = Hotkeys.loadHotkeys();
         keybind1 = hk.loadHotkeySpecific(9);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (Input.GetKeyDown(keybind1))
         {

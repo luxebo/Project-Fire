@@ -1397,7 +1397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 500
-  dashSpeedMultiplier: 1.75
+  dashSpeedMultiplier: 3
   dashCooldownMultiplier: 0.33
   dashUpdates: 20
   dashCooldownUpdates: 10

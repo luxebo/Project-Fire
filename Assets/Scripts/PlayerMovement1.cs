@@ -38,6 +38,7 @@ public class PlayerMovement1 : MonoBehaviour
         down = hk.loadHotkeySpecific(1);
         left = hk.loadHotkeySpecific(2);
         right = hk.loadHotkeySpecific(3);
+        dash = hk.loadHotkeySpecific(10);
         myCharacterController = GetComponent<CharacterController>();
         canMove = true;
 
@@ -85,14 +86,12 @@ public class PlayerMovement1 : MonoBehaviour
             moveDirection = camForward * moveInput.z + camRight * moveInput.x;
         }
         moveVelocity = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed); // Ensure that velocity magnitude is no greater than moveSpeed
-
-        /**
+        
         if (moveInput != Vector3.zero)
         {
             NavMeshAgent player = GetComponent<NavMeshAgent>();
             player.isStopped = true;
         }
-        */
         // Dashing
         if(canMove && Input.GetKeyDown(dash) && moveVelocity != Vector3.zero)
         {
