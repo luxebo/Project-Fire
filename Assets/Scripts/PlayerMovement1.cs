@@ -14,10 +14,12 @@ public class PlayerMovement1 : MonoBehaviour
     public float centerMouseDeadzoneRadius; // Defines a deadzone around the player where mouse movements are not read.
     public bool cameraRelative;
 
-
+    [SerializeField]
     private bool canMove;
     private CharacterController myCharacterController;
+    [SerializeField]
     private Vector3 moveInput;
+    [SerializeField]
     private Vector3 moveVelocity;
     private Vector3 mouseWorldPosition;
     private Plane playerPlane;
@@ -49,23 +51,29 @@ public class PlayerMovement1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // reset
         moveInput = Vector3.zero;
+        moveVelocity = Vector3.zero;
         // Get movement input. No movement along an axis if opposite directions pressed at same time.
         if (Input.GetKey(up) && !Input.GetKey(down))
         {
+            print("up");
             moveInput.z = 1;
         }
         else if (!Input.GetKey(up) && Input.GetKey(down))
         {
+            print("down");
             moveInput.z = -1;
         }
 
         if (Input.GetKey(left) && !Input.GetKey(right))
         {
+            print("left");
             moveInput.x = -1;
         }
         else if (!Input.GetKey(left) && Input.GetKey(right))
         {
+            print("right");
             moveInput.x = 1;
         }
 
@@ -93,10 +101,11 @@ public class PlayerMovement1 : MonoBehaviour
             player.isStopped = true;
         }
         // Dashing
-        if(canMove && Input.GetKeyDown(dash) && moveVelocity != Vector3.zero)
+        if(canMove && Input.GetKeyDown(dash))
         {
-            StartCoroutine(dashAction());
+            StartCoroutine(dashAction(moveVelocity));
         }
+
 
         // Rotate to face mouse position.
         if (Input.mousePosition != lastMousePosition) // Only update when mouse actually moves.
@@ -124,9 +133,10 @@ public class PlayerMovement1 : MonoBehaviour
 
     // The object this is attached to moves faster in a single direction for a specified amount of updates,
     // then slows down for a specified amount of updates.
-    IEnumerator dashAction()
+    IEnumerator dashAction(Vector3 moveVel)
     {
-        Vector3 dashVelocity = moveVelocity;
+        Vector3 dashVelocity = moveVel != Vector3.zero? moveVel: 
+            Vector3.ClampMagnitude(gameObject.transform.forward * moveSpeed, moveSpeed);
         canMove = false; // Prevent normal movement during a dash.
         print("dashing");
         // Dashing
@@ -138,12 +148,15 @@ public class PlayerMovement1 : MonoBehaviour
         // Cooldown
         for(int i =0; i< dashCooldownUpdates; i++)
         {
+            
             yield return new WaitForFixedUpdate();
             myCharacterController.SimpleMove(dashVelocity * dashCooldownMultiplier);
         }
+        yield return new WaitForFixedUpdate(); // Make sure that multiple calls to move are not allowed in one update.
         canMove = true; // reenable normal movement
         print("end dashing");
     }
+
     
 
 
