@@ -40,7 +40,10 @@ public class ObjectPooler : MonoBehaviour {
                 Queue<GameObject> newPool = new Queue<GameObject>();
                 for (int i = 0; i< item.amountToPool; i++)
                 {
-                    newPool.Enqueue(Instantiate(item.objectToPool));
+                    GameObject newObj = Instantiate(item.objectToPool);
+                    newObj.transform.parent = objectPool.transform;
+                    newObj.SetActive(false);
+                    newPool.Enqueue(newObj);
                 }
                 allPools[iTag] = newPool;
                 objectCount[iTag] = newPool.Count;
@@ -125,8 +128,8 @@ public class ObjectPooler : MonoBehaviour {
 
     public void returnPooledObject(GameObject obj)
     {
-        obj.SetActive(false);
         obj.transform.parent = objectPool.transform;
+        obj.SetActive(false);
         allPools[obj.tag].Enqueue(obj);
     }
 
@@ -134,6 +137,7 @@ public class ObjectPooler : MonoBehaviour {
     {
         foreach (GameObject obj in objects)
         {
+            obj.transform.parent = objectPool.transform;
             obj.SetActive(false);
             allPools[obj.tag].Enqueue(obj);
         }

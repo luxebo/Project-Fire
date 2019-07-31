@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Faction
+{
+    None, // Only use for Hitboxes, should damage all CombatActors
+    Neutral,
+    Friendly,
+    Enemy
+};
+
 public class CombatActor : MonoBehaviour {
     public int maxHealth;
     public int regen;
+    public Faction faction; // What "team" is this object on?
     public bool pooled;
     private bool alive;
     private int currentHealth;

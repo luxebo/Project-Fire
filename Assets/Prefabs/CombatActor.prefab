@@ -126,4 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   regen: 0
+  faction: 1
   pooled: 0

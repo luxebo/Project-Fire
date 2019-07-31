@@ -11,8 +11,9 @@ public class Hitbox : MonoBehaviour {
     public GameObject user;
     public float damage;
     public float lifetimeSeconds; // How many seconds will this hitbox last? (Set negative if never disappears)
-    public bool canHurtSelf; // Is the hitbox capabe of hurting the user?
+    public bool friendlyFire; // Is the hitbox capabe of hurting the user?
     public bool reusable; // If true, do not return the attached object to pool
+    public Faction faction; // Which team is this hitbox on? (Only damages other factions)
     private int lifetimeUpdates; // How many updates will this last? (rounded up)
     private int currentLifetime = 0;
 
@@ -40,8 +41,10 @@ public class Hitbox : MonoBehaviour {
         user = u;
         damage = dam;
         lifetimeSeconds = lifetime;
-        canHurtSelf = hurtSelf;
+        friendlyFire = hurtSelf;
         reusable = reuse;
+        CombatActor userActor = u.GetComponent<CombatActor>();
+        faction = userActor != null ? userActor.faction: Faction.None;
 
         convertLifetime();
         reset();
@@ -70,17 +73,14 @@ public class Hitbox : MonoBehaviour {
     // we want hitboxes with continuous damage.
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (!canHurtSelf && other.gameObject == user)
+        CombatActor otherActor = other.gameObject.GetComponent<CombatActor>();
+        if (otherActor != null && (otherActor.faction != faction || friendlyFire))
         {
-            return;
-        }
-        CombatActor enemy = other.gameObject.GetComponent<CombatActor>();
-        if (enemy != null)
-        {
-            enemy.Health -= Mathf.FloorToInt(damage);
+            otherActor.Health -= Mathf.FloorToInt(damage);
             // for debugging
-            print(enemy.Health);
+            print(otherActor.Health);
         }
+
         /**
          * // Commenting out this code b/c it means hitboxes colliding also damages user
 
