@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     private KeyCode keybind = KeyCode.Escape;
     private bool paused = false;
     public GameObject PauseMenu;
+    public GameObject player;
     string[] pausable = { "Level 1", "EnemyTest", "AssetTest" };
 
     public void Update()
@@ -45,12 +46,14 @@ public class LevelManager : MonoBehaviour
                 PauseMenu.SetActive(false);
                 Time.timeScale = 1f;
                 paused = false;
+                player.SetActive(true);
             }
             else
             {
                 PauseMenu.SetActive(true);
                 Time.timeScale = 0f;
                 paused = true;
+                player.SetActive(false);
             }
         }
     }
@@ -60,6 +63,7 @@ public class LevelManager : MonoBehaviour
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
         paused = false;
+        player.SetActive(true);
     }
 
     private bool sceneInPausable(string scene)
