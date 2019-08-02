@@ -16,7 +16,6 @@ public class PlayerMovement1 : MonoBehaviour
 
     [SerializeField]
     private bool canMove;
-    private CharacterController myCharacterController;
     [SerializeField]
     private Vector3 moveInput;
     [SerializeField]
@@ -24,12 +23,14 @@ public class PlayerMovement1 : MonoBehaviour
     private Vector3 mouseWorldPosition;
     private Plane playerPlane;
     private Vector3 lastMousePosition;
+    private NavMeshAgent playerAgent;
 
     private KeyCode up = KeyCode.W;
     private KeyCode down = KeyCode.S;
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
     private KeyCode dash = KeyCode.LeftShift;
+    private KeyCode click = KeyCode.Mouse1;
     HotkeysSettings hk;
 
     // Use this for initialization
@@ -41,11 +42,15 @@ public class PlayerMovement1 : MonoBehaviour
         left = hk.loadHotkeySpecific(2);
         right = hk.loadHotkeySpecific(3);
         dash = hk.loadHotkeySpecific(10);
-        myCharacterController = GetComponent<CharacterController>();
+        click = hk.loadHotkeySpecific(9);
+        //myCharacterController = GetComponent<CharacterController>();
         canMove = true;
 
+        playerAgent = GetComponent<NavMeshAgent>();
         playerPlane = new Plane(transform.up, transform.position); // Need plane for raycasting
         lastMousePosition = Vector3.zero;
+
+        playerAgent.speed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -54,28 +59,42 @@ public class PlayerMovement1 : MonoBehaviour
         // reset
         moveInput = Vector3.zero;
         moveVelocity = Vector3.zero;
-        // Get movement input. No movement along an axis if opposite directions pressed at same time.
-        if (Input.GetKey(up) && !Input.GetKey(down))
+        
+        if (Input.GetKeyDown(click)) // Process click movement.
         {
-            print("up");
-            moveInput.z = 1;
+            RaycastHit hit;
+            Ray pos = Camera.main.ScreenPointToRay(Input.mousePosition);
+            playerAgent.isStopped = false;
+            if (Physics.Raycast(pos, out hit, 1000))
+            {
+                playerAgent.destination = hit.point;
+            }
         }
-        else if (!Input.GetKey(up) && Input.GetKey(down))
+        else // Get movement input. No movement along an axis if opposite directions pressed at same time.
         {
-            print("down");
-            moveInput.z = -1;
+            if (Input.GetKey(up) && !Input.GetKey(down))
+            {
+                print("up");
+                moveInput.z = 1;
+            }
+            else if (!Input.GetKey(up) && Input.GetKey(down))
+            {
+                print("down");
+                moveInput.z = -1;
+            }
+
+            if (Input.GetKey(left) && !Input.GetKey(right))
+            {
+                print("left");
+                moveInput.x = -1;
+            }
+            else if (!Input.GetKey(left) && Input.GetKey(right))
+            {
+                print("right");
+                moveInput.x = 1;
+            }
         }
 
-        if (Input.GetKey(left) && !Input.GetKey(right))
-        {
-            print("left");
-            moveInput.x = -1;
-        }
-        else if (!Input.GetKey(left) && Input.GetKey(right))
-        {
-            print("right");
-            moveInput.x = 1;
-        }
 
         Vector3 moveDirection = moveInput;
         // Camera relative movement
@@ -94,17 +113,18 @@ public class PlayerMovement1 : MonoBehaviour
             moveDirection = camForward * moveInput.z + camRight * moveInput.x;
         }
         moveVelocity = Vector3.ClampMagnitude(moveDirection * moveSpeed, moveSpeed); // Ensure that velocity magnitude is no greater than moveSpeed
-        
+
         if (moveInput != Vector3.zero)
         {
-            NavMeshAgent player = GetComponent<NavMeshAgent>();
-            player.isStopped = true;
+            playerAgent.isStopped = true;
         }
+
         // Dashing
-        if(canMove && Input.GetKeyDown(dash))
+        if (canMove && Input.GetKeyDown(dash))
         {
             StartCoroutine(dashAction(moveVelocity));
         }
+        
 
 
         // Rotate to face mouse position.
@@ -123,10 +143,11 @@ public class PlayerMovement1 : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Set relative to Space.World for movement independent of rotation.
-        // Set relative to Space.Self for movement based on rotation.
-        if(canMove)
-            myCharacterController.SimpleMove(moveVelocity);
+        if (canMove && moveVelocity != Vector3.zero)
+        {
+            playerAgent.velocity = moveVelocity;
+        }
+            
 
 
     }
@@ -143,14 +164,14 @@ public class PlayerMovement1 : MonoBehaviour
         for(int i =0; i< dashUpdates; i++)
         {
             yield return new WaitForFixedUpdate();
-            myCharacterController.SimpleMove(dashVelocity * dashSpeedMultiplier);
+            playerAgent.velocity = dashVelocity * dashSpeedMultiplier;
         }
         // Cooldown
         for(int i =0; i< dashCooldownUpdates; i++)
         {
             
             yield return new WaitForFixedUpdate();
-            myCharacterController.SimpleMove(dashVelocity * dashCooldownMultiplier);
+            playerAgent.velocity = dashVelocity * dashCooldownMultiplier;
         }
         yield return new WaitForFixedUpdate(); // Make sure that multiple calls to move are not allowed in one update.
         canMove = true; // reenable normal movement
