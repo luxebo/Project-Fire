@@ -7,6 +7,7 @@ public class Dialogue : MonoBehaviour {
     
     private KeyCode callDialogue = KeyCode.Q;
     private KeyCode continueDialogue = KeyCode.Return;
+    HotkeysSettings hk;
     //Some dialogue can be triggered by an event. If not triggered, player has to press F near the object (or whatever key).
     //Let's say an enemy approaches and we want dialogue to appear, this will be triggered by an event rather
     //than the player having to push F AND be next to the object of dialogue to see this dialogue.
@@ -32,6 +33,9 @@ public class Dialogue : MonoBehaviour {
     void Start()
     {
         textCanvas = dialogueCanvas.GetComponentInChildren<Button>().GetComponentInChildren<Text>();
+        hk = Hotkeys.loadHotkeys();
+        callDialogue = hk.loadHotkeySpecific(11);
+        continueDialogue = hk.loadHotkeySpecific(12);
     }
 
     // Update is called once per frame
@@ -49,7 +53,7 @@ public class Dialogue : MonoBehaviour {
             if (Input.GetKeyDown(callDialogue) && index == 0 && textCanvas.text == "Button")
             {
                 Time.timeScale = 0f;
-                player.SetActive(false);
+                playerDisable(false);
                 dialogueCanvas.SetActive(true);
                 textCanvas.text = dialogue[index];
                 index += 1;
@@ -66,7 +70,7 @@ public class Dialogue : MonoBehaviour {
             else if (index > dialogue.Length)
             {
                 Time.timeScale = 1f;
-                player.SetActive(true);
+                playerDisable(true);
                 dialogueCanvas.SetActive(false);
                 textCanvas.text = "Button";
                 if (disableAfterTalk)
@@ -84,7 +88,7 @@ public class Dialogue : MonoBehaviour {
             if (index == 0 && textCanvas.text == "Button")
             {
                 Time.timeScale = 0f;
-                player.SetActive(false);
+                playerDisable(false);
                 dialogueCanvas.SetActive(true);
                 textCanvas.text = dialogue[index];
                 index += 1;
@@ -101,7 +105,7 @@ public class Dialogue : MonoBehaviour {
             else if (index > dialogue.Length)
             {
                 Time.timeScale = 1f;
-                player.SetActive(true);
+                playerDisable(true);
                 dialogueCanvas.SetActive(false);
                 textCanvas.text = "Button";
                 if (disableAfterTalk)
@@ -123,5 +127,28 @@ public class Dialogue : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    void playerDisable(bool enable)
+    {
+        if (enable)
+        {
+            Animator animate = player.GetComponent<Animator>();
+            animate.enabled = true;
+            foreach (MonoBehaviour script in player.GetComponents(typeof(MonoBehaviour)))
+            {
+                script.enabled = true;
+            }
+        }
+        else
+        {
+            Animator animate = player.GetComponent<Animator>();
+            animate.enabled = false;
+            foreach (MonoBehaviour script in player.GetComponents(typeof(MonoBehaviour)))
+            {
+
+                script.enabled = false;
+            }
+        }
     }
 }
