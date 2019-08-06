@@ -139,18 +139,14 @@ public class PlayerMovement1 : MonoBehaviour
                 transform.LookAt(mouseWorldPosition);
             }
         }
-    }
 
-    void FixedUpdate()
-    {
         if (canMove && moveVelocity != Vector3.zero)
         {
             playerAgent.velocity = moveVelocity;
         }
-            
-
-
     }
+
+
 
     // The object this is attached to moves faster in a single direction for a specified amount of updates,
     // then slows down for a specified amount of updates.
@@ -163,17 +159,17 @@ public class PlayerMovement1 : MonoBehaviour
         // Dashing
         for(int i =0; i< dashUpdates; i++)
         {
-            yield return new WaitForFixedUpdate();
+            yield return null;
             playerAgent.velocity = dashVelocity * dashSpeedMultiplier;
         }
         // Cooldown
         for(int i =0; i< dashCooldownUpdates; i++)
         {
-            
-            yield return new WaitForFixedUpdate();
+
+            yield return null;
             playerAgent.velocity = dashVelocity * dashCooldownMultiplier;
         }
-        yield return new WaitForFixedUpdate(); // Make sure that multiple calls to move are not allowed in one update.
+        yield return null; // Make sure that multiple calls to move are not allowed in one update.
         canMove = true; // reenable normal movement
         print("end dashing");
     }

@@ -4,14 +4,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BumpEnemy : MonoBehaviour {
-    public float maxSpeed;
+    //public float maxSpeed;
     private GameObject player;
-    private Rigidbody myRigidbody;
+    //private Rigidbody myRigidbody;
+    private NavMeshAgent myAgent;
     private bool bounced = false;
     // How many updates to stop moving after bumping so player does not die too fast
-    // Just a hacky fix, better to work on natural acceleration instead.
 
     // Michael: I think the solution is to let the enemy stay on the player, but only
     // apply damage every couple seconds instead of constantly. This forces player
@@ -21,39 +22,83 @@ public class BumpEnemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
-        myRigidbody = gameObject.GetComponent<Rigidbody>();
+        myAgent = gameObject.GetComponent<NavMeshAgent>();
+        myAgent.isStopped = false;
+
+        //myRigidbody = gameObject.GetComponent<Rigidbody>();
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    private void OnEnable()
+    {
+        StartCoroutine(updateDestination());
+    }
+
+    // Update is called once per frame
+    void Update () {
         Vector3 myPosition = gameObject.transform.position;
-        Vector3 playerPosition = player.transform.position;
+        
         if (stun_timer <= 0)
         {
             if (bounced)
             {
-                myRigidbody.MovePosition(Vector3.MoveTowards(myPosition, playerPosition, -15 * maxSpeed));
+                //myRigidbody.MovePosition(Vector3.MoveTowards(myPosition, playerPosition, -15 * maxSpeed));
+                myAgent.isStopped = true;
+                myAgent.velocity = myAgent.desiredVelocity * -4f;
                 bounced = false;
                 stun_timer = stunned;
             }
             else
             {
-                myRigidbody.MovePosition(Vector3.MoveTowards(myPosition, playerPosition, maxSpeed));
+                //print(Vector3.MoveTowards(myPosition, playerPosition, myAgent.speed));
+                myAgent.isStopped = false;
+                //myAgent.velocity = myAgent.desiredVelocity.normalized * myAgent.speed;
             }
         }
         else
         {
             stun_timer--;
         }
+        Vector3[] path = myAgent.path.corners;
+        print(string.Format("Player: {0}/ Path: {1}", player.transform.position, path[path.Length-1]));
     }
     
+
+
     private void OnCollisionStay(Collision other)
     {
         // Bounce off if touching player
-        if(other.gameObject == player && stun_timer == 0)
+        if (other.gameObject == player && stun_timer == 0)
         {
             print("bumped");
             bounced = true;
         }
     }
+
+    IEnumerator updateDestination()
+    {
+        int updateDelay = 60;
+        int currentUpdate = 0;
+        yield return null;
+        do
+        {
+            Vector3 playerPos = player.transform.position;
+            myAgent.destination = playerPos;
+            if(Vector3.Distance(transform.position, playerPos) > 450)
+            {
+                updateDelay = 60;
+            }
+            else
+            {
+                updateDelay = 20;
+            }
+            currentUpdate = updateDelay;
+            while(currentUpdate > 0 && gameObject.activeInHierarchy)
+            {
+                yield return null;
+                currentUpdate--;
+            }
+        }
+        while (gameObject.activeInHierarchy);
+    }
 }
+
