@@ -34,7 +34,7 @@ public class BumpEnemy : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void Update () {
         Vector3 myPosition = gameObject.transform.position;
         
         if (stun_timer <= 0)
@@ -43,7 +43,7 @@ public class BumpEnemy : MonoBehaviour {
             {
                 //myRigidbody.MovePosition(Vector3.MoveTowards(myPosition, playerPosition, -15 * maxSpeed));
                 myAgent.isStopped = true;
-                //myAgent.velocity = myAgent.desiredVelocity * -4f;
+                myAgent.velocity = myAgent.desiredVelocity * -4f;
                 bounced = false;
                 stun_timer = stunned;
             }
@@ -58,6 +58,8 @@ public class BumpEnemy : MonoBehaviour {
         {
             stun_timer--;
         }
+        Vector3[] path = myAgent.path.corners;
+        print(string.Format("Player: {0}/ Path: {1}", player.transform.position, path[path.Length-1]));
     }
     
 
@@ -76,14 +78,14 @@ public class BumpEnemy : MonoBehaviour {
     {
         int updateDelay = 10;
         int currentUpdate = 0;
-        yield return new WaitForFixedUpdate();
+        yield return null;
         do
         {
             myAgent.destination = player.transform.position; 
             currentUpdate = updateDelay;
             while(currentUpdate > 0 && gameObject.activeInHierarchy)
             {
-                yield return new WaitForFixedUpdate();
+                yield return null;
                 currentUpdate--;
             }
         }
