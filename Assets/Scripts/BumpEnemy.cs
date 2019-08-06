@@ -76,12 +76,21 @@ public class BumpEnemy : MonoBehaviour {
 
     IEnumerator updateDestination()
     {
-        int updateDelay = 10;
+        int updateDelay = 60;
         int currentUpdate = 0;
         yield return null;
         do
         {
-            myAgent.destination = player.transform.position; 
+            Vector3 playerPos = player.transform.position;
+            myAgent.destination = playerPos;
+            if(Vector3.Distance(transform.position, playerPos) > 450)
+            {
+                updateDelay = 60;
+            }
+            else
+            {
+                updateDelay = 20;
+            }
             currentUpdate = updateDelay;
             while(currentUpdate > 0 && gameObject.activeInHierarchy)
             {
