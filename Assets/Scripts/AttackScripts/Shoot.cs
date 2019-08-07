@@ -6,6 +6,8 @@ using UnityEngine;
 public class Shoot : Attack {
     //private GameObject hitboxObj;
     //private Hitbox hitbox;
+    [SerializeField]
+    private float range;
 
     protected override void Start()
     {
@@ -14,7 +16,6 @@ public class Shoot : Attack {
 
     protected override void attackAction()
     {
-        float range = 3000f;
         Vector3 velocity = new Vector3(0, 0, range / .75f);
         GameObject hitboxObj = Projectile.createProjectile(originObject, 10f, 5f, false, range, velocity);
         Projectile proj = hitboxObj.GetComponent<Projectile>();

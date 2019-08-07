@@ -127,5 +127,6 @@ MonoBehaviour:
   user: {fileID: 0}
   damage: 1
   lifetimeSeconds: 0
-  canHurtSelf: 0
+  friendlyFire: 0
   reusable: 0
+  faction: 0

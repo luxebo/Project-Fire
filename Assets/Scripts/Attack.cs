@@ -31,6 +31,12 @@ abstract public class Attack : MonoBehaviour {
         }
 	}
 
+    // is the attack on cooldown?
+    public bool isAvailable
+    {
+        get { return currentCooldown == 0; }
+    }
+
     // Calls attackAction and sets cooldown. Probably doesn't
     // need to be overridden.
     public virtual void attack()
