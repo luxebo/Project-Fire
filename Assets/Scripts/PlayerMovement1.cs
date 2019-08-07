@@ -33,6 +33,12 @@ public class PlayerMovement1 : MonoBehaviour
     private KeyCode click = KeyCode.Mouse1;
     HotkeysSettings hk;
 
+    bool is_moving;
+    public bool isMoving
+    {
+        get { return is_moving; }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -51,6 +57,8 @@ public class PlayerMovement1 : MonoBehaviour
         lastMousePosition = Vector3.zero;
 
         playerAgent.speed = moveSpeed;
+
+        is_moving = false;
     }
 
     // Update is called once per frame
@@ -140,10 +148,14 @@ public class PlayerMovement1 : MonoBehaviour
             }
         }
 
+        // move
         if (canMove && moveVelocity != Vector3.zero)
         {
             playerAgent.velocity = moveVelocity;
         }
+
+        // is player moving?
+        is_moving = (playerAgent.velocity != Vector3.zero);
     }
 
 

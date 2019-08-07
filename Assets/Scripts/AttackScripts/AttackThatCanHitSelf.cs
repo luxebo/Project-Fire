@@ -20,7 +20,7 @@ public class AttackThatCanHitSelf : Attack {
         // reposition hitbox
         hitboxObj.transform.SetParent(originObject.transform, false);
         hitboxObj.transform.localScale = new Vector3(1f, 1f, 1f);
-        hitboxObj.transform.localPosition = new Vector3(1.05f, 0);
+        hitboxObj.transform.localPosition = new Vector3(0, 0, 1.05f);
 
         hitboxObj.SetActive(true);
         // Detach hitbox so it does not move with the origin object.
