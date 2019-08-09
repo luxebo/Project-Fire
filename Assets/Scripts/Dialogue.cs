@@ -48,15 +48,11 @@ public class Dialogue : MonoBehaviour {
         {
             paused = false;
         }
-        if (!paused && !triggered && playerInRange())
+        if (!paused && !triggered)
         {
             if (Input.GetKeyDown(callDialogue) && index == 0 && textCanvas.text == "Button")
             {
-                Time.timeScale = 0f;
-                playerDisable(false);
-                dialogueCanvas.SetActive(true);
-                textCanvas.text = dialogue[index];
-                index += 1;
+                startDialogue();
             }
             else if (Input.GetKeyDown(continueDialogue) && index != 0 && index < dialogue.Length)
             {
@@ -69,29 +65,14 @@ public class Dialogue : MonoBehaviour {
             }
             else if (index > dialogue.Length)
             {
-                Time.timeScale = 1f;
-                playerDisable(true);
-                dialogueCanvas.SetActive(false);
-                textCanvas.text = "Button";
-                if (disableAfterTalk)
-                {
-                    this.enabled = false;
-                }
-                else
-                {
-                    index = 0;
-                }
+                endDialogue();
             }
         }
         else if (!paused && triggered)
         {
             if (index == 0 && textCanvas.text == "Button")
             {
-                Time.timeScale = 0f;
-                playerDisable(false);
-                dialogueCanvas.SetActive(true);
-                textCanvas.text = dialogue[index];
-                index += 1;
+                startDialogue();
             }
             else if (Input.GetKeyDown(continueDialogue) && index != 0 && index < dialogue.Length)
             {
@@ -104,19 +85,33 @@ public class Dialogue : MonoBehaviour {
             }
             else if (index > dialogue.Length)
             {
-                Time.timeScale = 1f;
-                playerDisable(true);
-                dialogueCanvas.SetActive(false);
-                textCanvas.text = "Button";
-                if (disableAfterTalk)
-                {
-                    this.enabled = false;
-                }
-                else
-                {
-                    index = 0;
-                }
+                endDialogue();
             }
+        }
+    }
+
+    void startDialogue()
+    {
+        Time.timeScale = 0f;
+        playerDisable(false);
+        dialogueCanvas.SetActive(true);
+        textCanvas.text = dialogue[index];
+        index += 1;
+    }
+
+    void endDialogue()
+    {
+        Time.timeScale = 1f;
+        playerDisable(true);
+        dialogueCanvas.SetActive(false);
+        textCanvas.text = "Button";
+        if (disableAfterTalk)
+        {
+            this.enabled = false;
+        }
+        else
+        {
+            index = 0;
         }
     }
 
@@ -131,10 +126,11 @@ public class Dialogue : MonoBehaviour {
 
     void playerDisable(bool enable)
     {
+        Animator animate = player.GetComponent<Animator>();
         if (enable)
         {
-            Animator animate = player.GetComponent<Animator>();
-            animate.enabled = true;
+            if(animate != null)
+                animate.enabled = true;
             foreach (MonoBehaviour script in player.GetComponents(typeof(MonoBehaviour)))
             {
                 script.enabled = true;
@@ -142,8 +138,8 @@ public class Dialogue : MonoBehaviour {
         }
         else
         {
-            Animator animate = player.GetComponent<Animator>();
-            animate.enabled = false;
+            if (animate != null)
+                animate.enabled = false;
             foreach (MonoBehaviour script in player.GetComponents(typeof(MonoBehaviour)))
             {
 
