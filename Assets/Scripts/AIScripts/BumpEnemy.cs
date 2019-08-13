@@ -76,13 +76,14 @@ public class BumpEnemy : AIMovement {
 
     IEnumerator updateDestination()
     {
-        int updateDelay = 60;
+        int updateDelay = 15;
         int currentUpdate = 0;
         yield return null;
         do
         {
             Vector3 playerPos = player.transform.position;
             myAgent.destination = playerPos;
+            /**
             if(Vector3.Distance(transform.position, playerPos) > 450)
             {
                 updateDelay = 60;
@@ -91,6 +92,7 @@ public class BumpEnemy : AIMovement {
             {
                 updateDelay = 20;
             }
+            */
             currentUpdate = updateDelay;
             while(currentUpdate > 0 && gameObject.activeInHierarchy)
             {

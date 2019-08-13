@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - SpawnPoint
   - BumpEnemy
+  - Turret
   layers:
   - Default
   - TransparentFX
