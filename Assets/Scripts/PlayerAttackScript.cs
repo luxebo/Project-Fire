@@ -16,10 +16,10 @@ public class PlayerAttackScript : MonoBehaviour {
     private bool keyPressed3 = false;
     private bool keyPressed4 = false;
 
-    private ExampleAttack attack1;
-    private AttackWithRecoilDamage attack2;
-    private AttackThatCanHitSelf attack3;
-    private Shoot attack4;
+    private Attack attack1;
+    private Attack attack2;
+    private Attack attack3;
+    private Attack attack4;
     HotkeysSettings hk;
 
     void Start()

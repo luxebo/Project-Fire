@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 33720819125255482}
   - component: {fileID: 23629058166405614}
   - component: {fileID: 65036174653571048}
-  - component: {fileID: 114659616755207816}
   - component: {fileID: 54437131048766200}
   - component: {fileID: 114089749474263780}
   - component: {fileID: 195421191288197376}
+  - component: {fileID: 114058264371224242}
   m_Layer: 0
   m_Name: BumpEnemy
   m_TagString: BumpEnemy
@@ -218,6 +218,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114058264371224242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1152412495621650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4df82d10a657d409dcb4225420d312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 40
+  regen: 0
+  faction: 3
+  pooled: 1
 --- !u!114 &114089749474263780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,21 +261,6 @@ MonoBehaviour:
   friendlyFire: 0
   reusable: 0
   faction: 3
---- !u!114 &114659616755207816
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1152412495621650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddf57210fa1375f40ac70c53020cdf1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 40
-  regen: 0
-  faction: 3
-  pooled: 1
 --- !u!195 &195421191288197376
 NavMeshAgent:
   m_ObjectHideFlags: 1

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BumpEnemy : MonoBehaviour {
+public class BumpEnemy : AIMovement {
     //public float maxSpeed;
     private GameObject player;
     //private Rigidbody myRigidbody;
@@ -20,7 +20,7 @@ public class BumpEnemy : MonoBehaviour {
     private int stunned = 40;
     private int stun_timer = 0;
 	// Use this for initialization
-	void Start () {
+	protected override void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         myAgent = gameObject.GetComponent<NavMeshAgent>();
         myAgent.isStopped = false;
@@ -34,7 +34,7 @@ public class BumpEnemy : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    public override void move () {
         Vector3 myPosition = gameObject.transform.position;
         
         if (stun_timer <= 0)
@@ -59,7 +59,7 @@ public class BumpEnemy : MonoBehaviour {
             stun_timer--;
         }
         Vector3[] path = myAgent.path.corners;
-        print(string.Format("Player: {0}/ Path: {1}", player.transform.position, path[path.Length-1]));
+        //print(string.Format("Player: {0}/ Path: {1}", player.transform.position, path[path.Length-1]));
     }
     
 
