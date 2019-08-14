@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ObjectSpawner : MonoBehaviour {
 
@@ -42,7 +43,11 @@ public class ObjectSpawner : MonoBehaviour {
             newObj.SetActive(true);
             newObj.transform.SetParent(gameObject.transform, true);
             //newObj.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            newObj.transform.localPosition = Vector3.zero;
+            NavMeshAgent spawnedObjAgent = newObj.GetComponent<NavMeshAgent>();
+            if(spawnedObjAgent != null)
+                spawnedObjAgent.Warp(gameObject.transform.position);
+            else
+                newObj.transform.localPosition = Vector3.zero;
             newObj.transform.SetParent(gameObject.transform.parent, true);
             numSpawned++;
             return true;
