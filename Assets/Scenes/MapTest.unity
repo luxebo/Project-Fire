@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 156759373}
   - component: {fileID: 156759372}
   - component: {fileID: 156759371}
+  - component: {fileID: 156759374}
   m_Layer: 0
   m_Name: Wall (1)
   m_TagString: Untagged
@@ -419,6 +420,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 156759369}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &156759374
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156759369}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &177972910
 Prefab:
   m_ObjectHideFlags: 0
@@ -456,6 +472,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4206379593893622, guid: a2a155209c1da4940a0b9b2bcb2aa58a, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23920304125488316, guid: a2a155209c1da4940a0b9b2bcb2aa58a,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -962,7 +983,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-6410480
+  m_Name: pb_Mesh-1388
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1159,6 +1180,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 23920304125488316, guid: a2a155209c1da4940a0b9b2bcb2aa58a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: a2a155209c1da4940a0b9b2bcb2aa58a, type: 2}
@@ -1223,6 +1249,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1893317111}
+    - target: {fileID: 114572030596063074, guid: 02c413f5b86d59c4ea617d54f9f189fa,
+        type: 2}
+      propertyPath: range
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c413f5b86d59c4ea617d54f9f189fa, type: 2}
   m_IsPrefabAsset: 0
@@ -1547,6 +1578,11 @@ Prefab:
     - target: {fileID: 4206379593893622, guid: a2a155209c1da4940a0b9b2bcb2aa58a, type: 2}
       propertyPath: m_LocalScale.z
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23920304125488316, guid: a2a155209c1da4940a0b9b2bcb2aa58a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2a155209c1da4940a0b9b2bcb2aa58a, type: 2}
@@ -1900,7 +1936,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-6410470
+  m_Name: pb_Mesh-1378
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -2170,6 +2206,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1893317111}
+    - target: {fileID: 114572030596063074, guid: 02c413f5b86d59c4ea617d54f9f189fa,
+        type: 2}
+      propertyPath: range
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c413f5b86d59c4ea617d54f9f189fa, type: 2}
   m_IsPrefabAsset: 0
@@ -2812,6 +2853,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23920304125488316, guid: a2a155209c1da4940a0b9b2bcb2aa58a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2a155209c1da4940a0b9b2bcb2aa58a, type: 2}
   m_IsPrefabAsset: 0
@@ -3214,7 +3260,7 @@ Prefab:
     - target: {fileID: 23920304125488316, guid: a2a155209c1da4940a0b9b2bcb2aa58a,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4206379593893622, guid: a2a155209c1da4940a0b9b2bcb2aa58a, type: 2}
       propertyPath: m_LocalScale.x
@@ -3773,6 +3819,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1893317111}
+    - target: {fileID: 114572030596063074, guid: 02c413f5b86d59c4ea617d54f9f189fa,
+        type: 2}
+      propertyPath: range
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c413f5b86d59c4ea617d54f9f189fa, type: 2}
   m_IsPrefabAsset: 0
@@ -4292,6 +4343,7 @@ GameObject:
   - component: {fileID: 1886704479}
   - component: {fileID: 1886704478}
   - component: {fileID: 1886704477}
+  - component: {fileID: 1886704480}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -4366,6 +4418,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1886704475}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &1886704480
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1886704475}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1893317111
 GameObject:
   m_ObjectHideFlags: 0
@@ -4659,6 +4726,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1893317111}
+    - target: {fileID: 114572030596063074, guid: 02c413f5b86d59c4ea617d54f9f189fa,
+        type: 2}
+      propertyPath: range
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c413f5b86d59c4ea617d54f9f189fa, type: 2}
   m_IsPrefabAsset: 0
