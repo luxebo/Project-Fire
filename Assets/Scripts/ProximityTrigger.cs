@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // ProximityTrigger activates all TriggerHandler components that are attached to immediate children
-// of this object when the player enters.
+// of this object or attached to objects in the array when the player enters.
 public class ProximityTrigger : MonoBehaviour {
+    [SerializeField]
+    GameObject[] otherHandlers;
     List<TriggerHandler> handlers;
     GameObject player;
 	// Use this for initialization
 	void Start () {
-        handlers = new List<TriggerHandler>();
         player = GameObject.FindGameObjectWithTag("Player");
+        handlers = new List<TriggerHandler>();
+        // Add TriggerHandlers from children
         foreach (Transform t in gameObject.transform)
         {
             TriggerHandler handler = t.gameObject.GetComponent<TriggerHandler>();
@@ -19,11 +22,19 @@ public class ProximityTrigger : MonoBehaviour {
                 handlers.Add(handler);
             }
         }
+        // Add TriggerHandlers from array
+        foreach (GameObject obj in otherHandlers)
+        {
+            TriggerHandler handler = obj.GetComponent<TriggerHandler>();
+            if (handler != null)
+            {
+                handlers.Add(handler);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Entered");
         if (other.gameObject == player)
         {
             print("Entered");
